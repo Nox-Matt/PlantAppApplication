@@ -54,4 +54,6 @@
     <string name="welcomeRegister">Create Account</string>
     <string name="hintLogin">Already Have An Account?</string>
     <string name="hyperlinkClick">Login Here</string>
+    <string name="txt_login">Don\'t have an account?</string>
+    <string name="loginitent"><u>Register</u></string>
 </resources>
