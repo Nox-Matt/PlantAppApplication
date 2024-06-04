@@ -10,4 +10,10 @@
     <color name="green">#00ff73</color>
     <color name="backgroundLoginRegister">#F5EFE6</color>
     <color name="hyperlinkColor">#1A4D2E</color>
+    <color name="lightlyGreen">#4F6F52</color>
+    <color name="lightTan">#E8DFCA</color>
+    <color name="brighterGreen">#D2E3C8</color>
+    <color name="darkerGreen">#4F6F52</color>
+    <color name="softerGreen">#86A789</color>
+    <color name="softGreen">#739072</color>
 </resources>
