@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.plant.MainActivity
 import com.example.plant.R
 import com.example.plant.databinding.ActivityLoginBinding
+import com.example.plant.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -37,6 +38,11 @@ class LoginActivity : AppCompatActivity() {
 
             val intentMain = Intent(this, MainActivity::class.java)
             startActivity(intentMain)
+        }
+
+        binding.txtLogin2.setOnClickListener {
+            val intentRegister = Intent(this, RegisterActivity::class.java)
+            startActivity(intentRegister)
         }
     }
 }
