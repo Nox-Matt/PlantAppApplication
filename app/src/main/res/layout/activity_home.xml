@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundLoginRegister"
+    tools:context=".ui.home.HomeActivity">
+
+    <TextView
+        android:id="@+id/recentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Recent Detection"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="407dp"
+        android:layout_height="137dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/banner"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <TextView
+        android:id="@+id/seeAllText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="See All"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonToAnalyzed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="@color/softerGreen"
+        android:drawableLeft="@drawable/ic_analyze"
+        android:text="Detect Your Plant"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageAnalyzed" />
+
+
+    <ImageView
+        android:id="@+id/imageAnalyzed"
+        android:layout_width="343dp"
+        android:layout_height="149dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/custom_image"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/quoteText"
+        android:layout_width="165dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="24dp"
+        android:text="Let’s detect your plant  disease!"
+        app:layout_constraintBottom_toTopOf="@+id/imageAnalyzed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/greetingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="54dp"
+        android:text="Hello!, $username"
+        app:layout_constraintBottom_toTopOf="@+id/quoteText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="515dp" />
+    <View
+        android:id="@+id/banner"
+        android:background="@drawable/custom_login_reg"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_home"
+        android:backgroundTint="@color/brighterGreen"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        app:layout_constraintLeft_toLeftOf="@+id/banner"
+        android:layout_marginLeft="35dp"
+        android:src="@drawable/home"/>
+
+    <ImageButton
+        android:id="@+id/btn_scan"
+        android:backgroundTint="@color/white"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/scan"
+        app:layout_constraintLeft_toRightOf="@+id/btn_home"
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_history"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/newspaper"
+        android:layout_marginLeft="10dp"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toRightOf="@+id/btn_scan"
+        app:layout_constraintBottom_toBottomOf="@+id/banner"/>
+
+    <ImageButton
+        android:id="@+id/btn_chat"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/chat_nav"
+        android:layout_marginLeft="10dp"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toRightOf="@+id/btn_history"
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,8 +32,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_History, R.id.navigation_Camera, R.id.navigation_Form
             )
         )
-        //Ini yang gua apus
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
 //        binding.btnIntent.setOnClickListener {
