@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundLoginRegister"
-    tools:context=".ui.home.HomeActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.home.HomeFragment">
 
     <TextView
         android:id="@+id/recentText"
@@ -20,11 +18,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="407dp"
-        android:layout_height="137dp"
+        android:layout_width="410dp"
+        android:layout_height="218dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/banner"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
@@ -64,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@drawable/img_home_frag" />
 
     <TextView
         android:id="@+id/quoteText"
@@ -93,54 +90,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="515dp" />
-    <View
-        android:id="@+id/banner"
-        android:background="@drawable/custom_login_reg"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-    <ImageButton
-        android:id="@+id/btn_home"
-        android:backgroundTint="@color/brighterGreen"
-        android:layout_width="70dp"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="@+id/banner"
-        app:layout_constraintLeft_toLeftOf="@+id/banner"
-        android:layout_marginLeft="35dp"
-        android:src="@drawable/home"/>
-
-    <ImageButton
-        android:id="@+id/btn_scan"
-        android:backgroundTint="@color/white"
-        android:layout_width="70dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/scan"
-        app:layout_constraintLeft_toRightOf="@+id/btn_home"
-        app:layout_constraintBottom_toBottomOf="@+id/banner"
-        />
-
-    <ImageButton
-        android:id="@+id/btn_history"
-        android:backgroundTint="@color/white"
-        android:src="@drawable/newspaper"
-        android:layout_marginLeft="10dp"
-        android:layout_width="70dp"
-        android:layout_height="80dp"
-        app:layout_constraintLeft_toRightOf="@+id/btn_scan"
-        app:layout_constraintBottom_toBottomOf="@+id/banner"/>
-
-    <ImageButton
-        android:id="@+id/btn_chat"
-        android:backgroundTint="@color/white"
-        android:src="@drawable/chat_nav"
-        android:layout_marginLeft="10dp"
-        android:layout_width="70dp"
-        android:layout_height="80dp"
-        app:layout_constraintLeft_toRightOf="@+id/btn_history"
-        app:layout_constraintBottom_toBottomOf="@+id/banner"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
