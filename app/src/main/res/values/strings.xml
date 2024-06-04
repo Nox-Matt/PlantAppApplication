@@ -11,6 +11,7 @@
     <string name="percentage">(%)</string>
     <string name="time">dd-mm-yyyy</string>
     <string name="qna_title">QNA TItle</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_form_fragment">Hello form fragment</string>
     <string name="hello_history_fragment">Hello history fragment</string>
@@ -49,6 +50,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
     <string name="welcomeRegister">Create Account</string>
     <string name="hintLogin">Already Have An Account?</string>
     <string name="hyperlinkClick">Login Here</string>
