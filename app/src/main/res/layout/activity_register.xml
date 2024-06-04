@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundLoginRegister"
+    app:layoutDescription="@xml/activity_register_scene"
     tools:context=".ui.register.RegisterActivity">
 
     <ImageView
         android:id="@+id/img_register"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:src="@drawable/img_person"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textWelcome" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textWelcome"
@@ -25,9 +25,9 @@
         android:layout_marginTop="32dp"
         android:text="@string/welcomeRegister"
         android:textSize="38dp"
-        app:layout_constraintBottom_toTopOf="@+id/img_register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -35,12 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:background="@drawable/custom_login_reg"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
@@ -61,11 +62,12 @@
         android:drawableStart="@drawable/custom_user_icon"
         android:drawablePadding="10dp"
         android:hint="@string/username"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/banner"
+        app:layout_constraintRight_toRightOf="@+id/banner"
         app:layout_constraintTop_toTopOf="@+id/banner" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
@@ -86,11 +88,12 @@
         android:drawableStart="@drawable/custom_lock_icon"
         android:drawablePadding="10dp"
         android:hint="@string/password"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/banner"
+        app:layout_constraintRight_toRightOf="@+id/banner"
         app:layout_constraintTop_toBottomOf="@+id/edt_username" />
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
@@ -111,8 +114,8 @@
         android:drawableStart="@drawable/custom_lock_icon"
         android:drawablePadding="10dp"
         android:hint="@string/confirm_password"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/banner"
+        app:layout_constraintRight_toRightOf="@+id/banner"
         app:layout_constraintTop_toBottomOf="@+id/edt_password" />
 
 
@@ -121,15 +124,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/green"
         android:text="@string/register"
         android:textColor="@android:color/darker_gray"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/banner"
+        app:layout_constraintRight_toRightOf="@+id/banner"
         app:layout_constraintTop_toBottomOf="@+id/edt_confirm_password" />
 
     <TextView
@@ -147,15 +150,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:textColor="@color/hyperlinkColor"
-        android:textStyle="bold"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/hyperlinkClick"
+        android:textColor="@color/hyperlinkColor"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/banner"
         app:layout_constraintEnd_toEndOf="@+id/btn_register"
         app:layout_constraintStart_toEndOf="@+id/hintRegister"
         app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
