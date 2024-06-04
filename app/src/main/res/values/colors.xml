@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#00ff73</color>
     <color name="backgroundLoginRegister">#F5EFE6</color>
+    <color name="hyperlinkColor">#1A4D2E</color>
 </resources>

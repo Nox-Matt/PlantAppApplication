@@ -5,114 +5,157 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundLoginRegister"
     tools:context=".ui.register.RegisterActivity">
 
     <ImageView
         android:id="@+id/img_register"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/leaf_img"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/img_person"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWelcome" />
+
+    <TextView
+        android:id="@+id/textWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/welcomeRegister"
+        android:textSize="38dp"
+        app:layout_constraintBottom_toTopOf="@+id/img_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/custom_login_reg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:layout_marginLeft="32dp"
         android:text="@string/username"
-        android:layout_marginStart="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edt_username"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        app:layout_constraintLeft_toLeftOf="parent" />
+
     <EditText
         android:id="@+id/edt_username"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:hint="@string/username"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_user_icon"
         android:drawablePadding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/img_register"
-        app:layout_constraintRight_toRightOf="parent"
+        android:hint="@string/username"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/banner" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
         android:text="@string/password"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edt_password"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="20dp"
-        />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <EditText
         android:id="@+id/edt_password"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:layout_constraintTop_toBottomOf="@+id/edt_username"
-        android:layout_marginTop="50dp"
-        android:hint="@string/password"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:drawablePadding="10dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_lock_icon"
+        android:drawablePadding="10dp"
+        android:hint="@string/password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/edt_username" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
         android:text="@string/confirm_password"
-        app:layout_constraintBottom_toTopOf="@+id/edt_confirm_password"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="20dp"
-        android:textStyle="bold"
         android:textSize="15dp"
-        />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edt_confirm_password"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <EditText
         android:id="@+id/edt_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
         android:background="@drawable/custom_input"
-        android:hint="@string/confirm_password"
-        android:drawablePadding="10dp"
         android:drawableStart="@drawable/custom_lock_icon"
-        app:layout_constraintTop_toBottomOf="@+id/edt_password"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:drawablePadding="10dp"
+        android:hint="@string/confirm_password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/edt_password" />
 
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/green"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_confirm_password"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/register"
         android:textColor="@android:color/darker_gray"
         android:textStyle="bold"
-        android:text="@string/register"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_confirm_password" />
+
+    <TextView
+        android:id="@+id/hintRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="@string/hintLogin"
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        app:layout_constraintStart_toStartOf="@+id/btn_register"
+        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
+
+    <TextView
+        android:id="@+id/hyperlinkLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:textColor="@color/hyperlinkColor"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/hyperlinkClick"
+        app:layout_constraintBottom_toBottomOf="@+id/banner"
+        app:layout_constraintEnd_toEndOf="@+id/btn_register"
+        app:layout_constraintStart_toEndOf="@+id/hintRegister"
+        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

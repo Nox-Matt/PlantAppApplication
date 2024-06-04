@@ -18,7 +18,7 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="analyze">Analyze</string>
-    <string name="welcome">welcome</string>
+    <string name="welcome">Welcome</string>
     <string name="title_menu2">We are trying to analyze your plant\'s diseases</string>
     <string name="title_menu3">We are trying to give guidance material</string>
     <string name="login">Login</string>
@@ -49,4 +49,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="welcomeRegister">Create Account</string>
+    <string name="hintLogin">Already Have An Account?</string>
+    <string name="hyperlinkClick">Login Here</string>
 </resources>
