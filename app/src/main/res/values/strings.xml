@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">plant</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="nama_penyakit">Nama Penyakit</string>
+    <string name="percentage">(%)</string>
+    <string name="time">dd-mm-yyyy</string>
+    <string name="qna_title">QNA TItle</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_form_fragment">Hello form fragment</string>
+    <string name="hello_history_fragment">Hello history fragment</string>
+    <string name="hello_camera_fragment">Hello camera fragment</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="analyze">Analyze</string>
+    <string name="welcome">welcome</string>
+    <string name="title_menu2">We are trying to analyze your plant\'s diseases</string>
+    <string name="title_menu3">We are trying to give guidance material</string>
+    <string name="login">Login</string>
+    <string name="history">History</string>
+    <string name="form">Form</string>
+
+    <string-array name="name_disease">
+        <item>ini tanaman</item>
+    </string-array>
+
+    <string-array name="date_history">
+        <item>dd-mm-yyyy</item>
+    </string-array>
+
+    <string-array name="desc_disease">
+        <item>ini deskripsi penyakit</item>
+    </string-array>
+
+    <string-array name="percentage">
+        <item>(20%)</item>
+    </string-array>
+
+    <integer-array name="data_photo">
+        <item>@drawable/tanaman</item>
+    </integer-array>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+</resources>
