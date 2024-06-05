@@ -16,4 +16,5 @@
     <color name="darkerGreen">#4F6F52</color>
     <color name="softerGreen">#86A789</color>
     <color name="softGreen">#739072</color>
+    <color name="greyInput">#EEEEEE</color>
 </resources>

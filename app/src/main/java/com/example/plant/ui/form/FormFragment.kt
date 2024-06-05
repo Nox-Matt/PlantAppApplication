@@ -38,7 +38,7 @@ class FormFragment : Fragment() {
         }
 
         // RecyclerView setup
-        binding.recyclerView.apply {
+        binding.questionRecycler.apply {
             adapter = formAdapter
             layoutManager = LinearLayoutManager(context)
         }
