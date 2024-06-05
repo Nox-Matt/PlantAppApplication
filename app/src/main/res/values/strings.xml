@@ -92,4 +92,5 @@
     <string name="questionDetail">Question goes Here</string>
     <string name="discussion_forum">Discussion Forum</string>
     <string name="commentEditText">Comment</string>
+    <string name="titleAddForm">Ask Your Question!</string>
 </resources>

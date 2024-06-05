@@ -59,6 +59,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/custom_input"
         android:inputType="text"
+        android:paddingStart="8dp"
         android:text="@string/commentEditText"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/banner"
