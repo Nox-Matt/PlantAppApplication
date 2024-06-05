@@ -31,8 +31,8 @@ class FormFragment : Fragment() {
 
         // Adapter Initialization
         formAdapter = FormAdapter { form ->
-            // Launch DetailFormActivity with data from clicked item
-            val intent = Intent(context, DetailFormFragment::class.java)
+
+            val intent = Intent(context, DetailFormActivity::class.java)
             intent.putExtra("form", form)
             startActivity(intent)
         }
@@ -55,5 +55,4 @@ class FormFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
