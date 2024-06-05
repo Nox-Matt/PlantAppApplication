@@ -30,19 +30,20 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="See All"
+        android:textColor="@color/hyperlinkColor"
+        android:text="@string/seeall"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonToAnalyzed"
-        android:layout_width="wrap_content"
+        android:layout_width="343dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
         android:backgroundTint="@color/softerGreen"
         android:drawableLeft="@drawable/ic_analyze"
         android:text="Detect Your Plant"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageAnalyzed" />
@@ -79,10 +80,33 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="54dp"
-        android:text="Hello!, $username"
+        android:textStyle="bold"
+        android:text="Hello,"
+        android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/quoteText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/greetingText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:text="Name!"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/quoteText"
+        app:layout_constraintLeft_toRightOf="@+id/greetingText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_logout"
+        android:backgroundTint="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logout"
+        app:layout_constraintBottom_toBottomOf="@+id/greetingText1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="20dp"
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

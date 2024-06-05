@@ -9,7 +9,11 @@
         android:id="@+id/navigation_Home"
         android:name="com.example.plant.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_Home_to_navigation_History"
+            app:destination="@id/navigation_History" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"

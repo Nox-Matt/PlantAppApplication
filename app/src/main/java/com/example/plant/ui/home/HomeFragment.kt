@@ -1,16 +1,21 @@
 package com.example.plant.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plant.ListHistory
 import com.example.plant.R
 import com.example.plant.databinding.FragmentHomeBinding
 import com.example.plant.ui.history.HistoryAdapter
+import com.example.plant.ui.history.HistoryFragment
+import com.example.plant.ui.login.LoginActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,9 +56,23 @@ class HomeFragment : Fragment() {
         homeViewModel.historyList.observe(viewLifecycleOwner) {
             showRecyclerList(it)
         }
+
         val root : View = binding.root
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnLogout.setOnClickListener {
+            val intentLogin = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intentLogin)
+        }
+
+        binding.seeAllText.setOnClickListener {
+            view.findNavController().navigate(R.id.action_navigation_Home_to_navigation_History)
+        }
     }
 
     private fun setListHistories() : ArrayList<ListHistory>{
@@ -75,6 +94,11 @@ class HomeFragment : Fragment() {
         val listHistoryAdapter = HistoryAdapter()
         listHistoryAdapter.submitList(list)
         binding.recyclerView.adapter =listHistoryAdapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     companion object {

@@ -23,6 +23,9 @@
             android:name=".ui.form.AddFormActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.guidance.DetailGuidanceActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.form.DetailFormActivity"
             android:exported="false" />
         <activity

@@ -1,6 +1,7 @@
 package com.example.plant.ui.guidance
 
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -17,6 +18,11 @@ class GuidanceAdapter : ListAdapter<ListGuidance, GuidanceAdapter.ListViewHolder
             binding.imgGuide.setImageResource(guidance.photo)
             binding.txtTitle.text = "${guidance.title}"
             binding.txtTime.text = "${guidance.time}"
+
+            itemView.setOnClickListener {
+                val intentDetailGuide = Intent(itemView.context, DetailGuidanceActivity::class.java)
+                itemView.context.startActivity(intentDetailGuide)
+            }
         }
     }
 
