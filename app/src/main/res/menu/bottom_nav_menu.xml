@@ -20,5 +20,9 @@
         android:id="@+id/navigation_Form"
         android:icon="@drawable/ic_form"
         android:title="@string/form" />
+    <item
+        android:id="@+id/navigation_Guidance"
+        android:icon="@drawable/ic_guidance"
+        android:title="@string/guidance" />
 
 </menu>
