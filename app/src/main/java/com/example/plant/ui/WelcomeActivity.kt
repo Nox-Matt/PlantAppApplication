@@ -1,7 +1,10 @@
 package com.example.plant.ui
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,5 +30,31 @@ class WelcomeActivity : AppCompatActivity() {
             val intentRegister = Intent(this, RegisterActivity::class.java)
             startActivity(intentRegister)
         }
+
+        playAnimation()
+    }
+
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.imgDiseases1, View.TRANSLATION_Y, -10f,30f).apply {
+            duration = 3000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        Handler().postDelayed({
+            ObjectAnimator.ofFloat(binding.imgDiseases2, View.TRANSLATION_Y, -10f,10f).apply {
+                duration = 3000
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ObjectAnimator.REVERSE
+            }.start()
+        }, 2000)
+
+        ObjectAnimator.ofFloat(binding.imgBook, View.TRANSLATION_Y, 0f,30f).apply {
+            duration = 3000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+
     }
 }
