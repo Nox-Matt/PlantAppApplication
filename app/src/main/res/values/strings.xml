@@ -37,7 +37,6 @@
         <item>dd-mm-yyyy</item>
         <item>dd-mm-yyyy</item>
     </string-array>
-
     <string-array name="desc_disease">
         <item>ini deskripsi penyakit</item>
         <item>ini deskripsi penyakit</item>
