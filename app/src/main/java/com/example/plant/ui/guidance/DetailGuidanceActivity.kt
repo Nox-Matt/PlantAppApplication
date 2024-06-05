@@ -20,5 +20,8 @@ class DetailGuidanceActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        binding.imgBack.setOnClickListener{
+            onBackPressed()
+        }
     }
 }

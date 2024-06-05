@@ -38,6 +38,10 @@ class DetailActivity : AppCompatActivity() {
         binding.imgDetail.setImageResource(intent.getIntExtra(PHOTO_DETAIL,0))
         binding.txtNama.text = intent.getStringExtra(DISEASE_NAME)
         binding.txtPercentage.text = intent.getStringExtra(PERCENTAGE)
+
+        binding.imgBack.setOnClickListener{
+            onBackPressed()
+        }
     }
 
     companion object{

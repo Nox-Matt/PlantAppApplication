@@ -1,5 +1,6 @@
 package com.example.plant.ui.form
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,13 @@ class DetailFormActivity : AppCompatActivity() {
             binding.detailDate.text = it.date
             binding.detailQnA.text = it.title
         }
+
+        //Button Back To FormFragment
+        val back = binding.imgBack
+        back.setOnClickListener{
+            onBackPressed()
+        }
+
 
         // Initialize RecyclerView and Adapter
         val recyclerView = binding.recycleComment

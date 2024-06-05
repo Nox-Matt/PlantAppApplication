@@ -2,6 +2,7 @@ package com.example.plant
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -23,6 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
+        //Close Application Function
+        onBackPressedDispatcher.addCallback(this@MainActivity, object: OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val startMain = Intent(Intent.ACTION_MAIN)
+                startMain.addCategory(Intent.CATEGORY_HOME)
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(startMain)
+            }
+        })
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
