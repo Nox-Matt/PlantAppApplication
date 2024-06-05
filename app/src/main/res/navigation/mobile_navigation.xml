@@ -40,6 +40,11 @@
         android:name="com.example.plant.ui.form.FormFragment"
         android:label="@string/form"
         tools:layout="@layout/fragment_form" />
+    <fragment
+        android:id="@+id/navigation_Guidance"
+        android:name="com.example.plant.ui.guidance.GuidanceFragment"
+        android:label="@string/guidance"
+        tools:layout="@layout/fragment_guidance" />
 
 
 

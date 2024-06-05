@@ -13,6 +13,7 @@
         android:layout_height="300dp"
         android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
+        android:transitionName="img_plant"
         android:src="@drawable/img_detail"/>
 
     <View
@@ -36,6 +37,7 @@
         app:layout_constraintTop_toTopOf="@+id/banner"
         app:layout_constraintLeft_toLeftOf="@id/banner"
         app:layout_constraintBottom_toTopOf="@id/txt_percentage"
+        android:transitionName="name"
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
         />
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:text="@string/percentage"
         android:layout_marginLeft="20dp"
+        android:transitionName="percentage"
         app:layout_constraintBottom_toBottomOf="@+id/banner"
         app:layout_constraintLeft_toLeftOf="@+id/banner"
         app:layout_constraintTop_toBottomOf="@+id/txt_nama"
