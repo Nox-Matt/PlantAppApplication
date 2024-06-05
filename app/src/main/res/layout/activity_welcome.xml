@@ -120,6 +120,8 @@
         android:text="@string/register"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:backgroundTint="@color/softerGreen"
+        android:textColor="@android:color/white"
         />
 
     <Button
@@ -129,6 +131,8 @@
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:text="@string/login"
+        android:backgroundTint="@color/softerGreen"
+        android:textColor="@android:color/white"
         />
 
 
