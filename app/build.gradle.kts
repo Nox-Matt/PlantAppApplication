@@ -55,4 +55,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation (libs.circleimageview)
     implementation(libs.androidx.viewpager2)
+
+    implementation(libs.glide)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.logging.interceptor)
 }
