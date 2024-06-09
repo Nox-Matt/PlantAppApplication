@@ -2,6 +2,7 @@ package com.example.plant.ui.network
 
 import com.example.plant.ui.network.response.Data
 import com.example.plant.ui.network.response.DetectResponse
+import com.example.plant.ui.network.response.LoginResponse
 import com.example.plant.ui.network.response.RegisterResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -20,6 +21,13 @@ interface ApiService {
         @Field("username") username:String,
         @Field("password") password:String,
     ): Call<RegisterResponse>
+
+    @FormUrlEncoded
+    @POST("login")
+    fun login(
+        @Field("username") username:String,
+        @Field("password") password:String,
+    ): Call<LoginResponse>
 
     @Multipart
     @POST("detect")
