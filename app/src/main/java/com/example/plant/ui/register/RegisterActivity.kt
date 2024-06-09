@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -45,45 +47,67 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-//            val intentLogin = Intent(this, LoginActivity::class.java)
-//            startActivity(intentLogin)
             val username = binding.edtUsername.text.toString()
             val password = binding.edtPassword.text.toString()
-            Register(username, password)
+            val confirmPassword = binding.edtConfirmPassword.text.toString()
+            if (password != confirmPassword) {
+                Toast.makeText(this, "Password and Confirm Password must be the same", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                register(username, password)
+            }
         }
     }
 
-    private fun Register(username: String, password: String){
-        val client = ApiConfig.getApiService().Register(username, password)
-        client.enqueue(object:Callback<RegisterResponse>{
-            override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
-            ) {
-                if(response.isSuccessful){
-                    val responseBody = response.body()
-                    if(responseBody != null){
-                        Log.d(TAG, "${responseBody.message}")
-                    }else{
-                        Log.d(TAG, "onResponseNull ${response.message()}")
+    private fun register(username: String, password: String) {
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Make sure all of your credential is inputted correctly", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "login: username or password is empty")
+        } else{
+            val client = ApiConfig.getApiService().Register(username, password)
+            client.enqueue(object : Callback<RegisterResponse> {
+                override fun onResponse(
+                    call: Call<RegisterResponse>,
+                    response: Response<RegisterResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            Log.d(TAG, "${responseBody.message}")
+                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            Log.d(TAG, "onResponseNull ${response.message()}")
+                        }
+                    } else {
+                        val errorBody = (response?.errorBody() as ResponseBody).string()
+                        val error1 = errorBody.split("{")
+                        val error2 = error1[1].split("}")
+                        val error3 = error2[0].split(",")
+                        val error4 = error3[1].split(":")
+                        val error5 = error4[1].split("\"")
+                        val errorfinal = error5[1]
+                        Log.d(TAG, errorfinal)
+                        showErrorDialog()
                     }
-                }else{
-                    val errorBody =(response?.errorBody() as ResponseBody).string()
-                    val error1 = errorBody.split("{")
-                    val error2 = error1[1].split("}")
-                    val error3 = error2[0].split(",")
-                    val error4 = error3[1].split(":")
-                    val error5 = error4[1].split("\"")
-                    val errorfinal = error5[1]
-                    Log.d(TAG, errorfinal)
                 }
-            }
 
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                Log.d(TAG, "onFailure: ${t.message}")
-            }
+                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
 
-        })
+            })
+        }
+    }
+    private fun showErrorDialog(){
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Register Failed")
+            .setMessage("An error occurred during register, check your username and password, then Please try again.")
+            .setPositiveButton("Okay") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+        dialog.show()
     }
 
     companion object{
