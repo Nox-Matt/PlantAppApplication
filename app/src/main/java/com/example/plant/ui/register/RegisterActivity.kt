@@ -68,8 +68,14 @@ class RegisterActivity : AppCompatActivity() {
                         Log.d(TAG, "onResponseNull ${response.message()}")
                     }
                 }else{
-                    val errorBody = (response.errorBody() as ResponseBody).toString()
-                    Log.d(TAG, errorBody)
+                    val errorBody =(response?.errorBody() as ResponseBody).string()
+                    val error1 = errorBody.split("{")
+                    val error2 = error1[1].split("}")
+                    val error3 = error2[0].split(",")
+                    val error4 = error3[1].split(":")
+                    val error5 = error4[1].split("\"")
+                    val errorfinal = error5[1]
+                    Log.d(TAG, errorfinal)
                 }
             }
 

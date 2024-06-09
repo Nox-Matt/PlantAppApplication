@@ -98,5 +98,6 @@
     <string name="step1">Step1</string>
     <string name="step2">Step2</string>
     <string name="content_detail_guide">It is a long established fact that a reader will be distracted by  the readable content of a page when looking at its layout. </string>
+    <string name="empty_image_warning">image is empty</string>
 
 </resources>

@@ -17,6 +17,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.plant.R
 import com.example.plant.databinding.FragmentCameraBinding
 import com.example.plant.getImageUri
+import com.example.plant.reduceFileImage
+import com.example.plant.ui.network.ApiConfig
+import com.example.plant.ui.network.response.DetectResponse
+import com.example.plant.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,9 +94,7 @@ class CameraFragment : Fragment() {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
     }
-    private fun analyzeImage() {
 
-    }
     private fun showImage() {
         currentImageUri?.let {
             Log.d("Image URI", "showImage: $it")
@@ -109,9 +117,48 @@ class CameraFragment : Fragment() {
             startCamera()
         }
         binding.analyzeButton.setOnClickListener{
-            //Function to analyze goes here
+            analyzeImage()
         }
         return root
+    }
+
+    private fun analyzeImage() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "image",
+                imageFile.name,
+                requestImageFile
+            )
+
+            val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxNzkyNzEyM30.uLBSnh7fjmUA6F179Vfu3JS1b-haebY3VZmmLLKjxA0"
+            val client = ApiConfig.getApiService().detectImage("Bearer $auth", multipartBody)
+            client.enqueue(object : Callback<DetectResponse> {
+                override fun onResponse(
+                    call: Call<DetectResponse>,
+                    response: Response<DetectResponse>
+                ) {
+                    if(response.isSuccessful){
+                        val responseBody =response.body()
+                        if(responseBody != null){
+                            Log.d(TAG, "${responseBody.data?.diseasesName}")
+                            Log.d(TAG, "${responseBody.message}")
+                            Log.d(TAG, "${responseBody.data?.percentage}")
+                        }
+                    }else{
+                        Log.d(TAG, "${response.message()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<DetectResponse>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+        } ?: showToast(getString(R.string.empty_image_warning))
     }
 
     override fun onDestroyView() {
@@ -121,5 +168,12 @@ class CameraFragment : Fragment() {
 
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+        const val TAG = "CameraFragment"
     }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+
 }
