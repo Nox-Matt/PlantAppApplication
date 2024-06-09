@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.plant.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +23,8 @@ class TreatmentFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var treat : TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +39,14 @@ class TreatmentFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_treatment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        treat = view.findViewById(R.id.txt_content)
+        val content = arguments?.getString(TREATMENT)
+        treat.text = content
     }
 
     companion object {
@@ -56,5 +67,7 @@ class TreatmentFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        const val TREATMENT = "treatment"
     }
 }

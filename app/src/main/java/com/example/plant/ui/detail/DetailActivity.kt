@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.plant.R
 import com.example.plant.databinding.ActivityDetailBinding
 import com.example.plant.ui.SectionPagerAdapter
@@ -26,7 +27,11 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-        val sectionsPagerAdapter = SectionPagerAdapter(this)
+        val description =intent.getStringExtra(DESCRIPTION)
+        val causes = intent.getStringExtra(CAUSES)
+        val treatment = intent.getStringExtra(TREATMENT)
+
+        val sectionsPagerAdapter = SectionPagerAdapter(this, "$description", "$causes", "$treatment")
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
@@ -36,8 +41,14 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         binding.imgDetail.setImageResource(intent.getIntExtra(PHOTO_DETAIL,0))
+        Glide.with(this)
+            .load(intent.getStringExtra(PHOTO_DETAIL))
+            .into(binding.imgDetail)
         binding.txtNama.text = intent.getStringExtra(DISEASE_NAME)
-        binding.txtPercentage.text = intent.getStringExtra(PERCENTAGE)
+        val percentage = intent.getStringExtra(PERCENTAGE)
+        val percentageS = percentage?.split(".")
+        val percentageA = percentageS?.get(1)?.substring(0,2)
+        binding.txtPercentage.text = "${percentageS?.get(0)}.$percentageA %"
 
         binding.imgBack.setOnClickListener{
             onBackPressed()
@@ -48,6 +59,9 @@ class DetailActivity : AppCompatActivity() {
         const val PHOTO_DETAIL = "photo detail"
         const val DISEASE_NAME = "disease name"
         const val PERCENTAGE = "percentage"
+        const val DESCRIPTION = "description"
+        const val CAUSES = "causes"
+        const val TREATMENT = "treatment"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(

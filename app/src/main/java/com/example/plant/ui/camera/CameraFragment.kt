@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
@@ -18,6 +19,7 @@ import com.example.plant.R
 import com.example.plant.databinding.FragmentCameraBinding
 import com.example.plant.getImageUri
 import com.example.plant.reduceFileImage
+import com.example.plant.ui.detail.DetailActivity
 import com.example.plant.ui.network.ApiConfig
 import com.example.plant.ui.network.response.DetectResponse
 import com.example.plant.uriToFile
@@ -143,9 +145,20 @@ class CameraFragment : Fragment() {
                     if(response.isSuccessful){
                         val responseBody =response.body()
                         if(responseBody != null){
-                            Log.d(TAG, "${responseBody.data?.diseasesName}")
+                            Log.d(TAG, "${responseBody.data?.id}")
                             Log.d(TAG, "${responseBody.message}")
                             Log.d(TAG, "${responseBody.data?.percentage}")
+
+                            val intentDetail = Intent(context, DetailActivity::class.java)
+
+                            intentDetail.putExtra(DetailActivity.PHOTO_DETAIL, "${responseBody.data?.imageUrl}")
+                            intentDetail.putExtra(DetailActivity.PERCENTAGE, "${responseBody.data?.percentage}")
+                            intentDetail.putExtra(DetailActivity.DISEASE_NAME, "${responseBody.data?.diseasesName}")
+                            intentDetail.putExtra(DetailActivity.DESCRIPTION, "${responseBody.data?.description}")
+                            intentDetail.putExtra(DetailActivity.CAUSES, "${responseBody.data?.causes}")
+                            intentDetail.putExtra(DetailActivity.TREATMENT, "${responseBody.data?.treatment}")
+
+                            startActivity(intentDetail)
                         }
                     }else{
                         Log.d(TAG, "${response.message()}")
