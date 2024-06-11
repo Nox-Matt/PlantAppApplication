@@ -135,7 +135,7 @@ class CameraFragment : Fragment() {
                 requestImageFile
             )
 
-            val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxODA4MTE0MX0.AFJzmjxV82x1jYh0ZBEF0JEkd6AU7bBQPjm2K31pD0U"
+            val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
             val client = ApiConfig.getApiService().detectImage("Bearer $auth", multipartBody)
             client.enqueue(object : Callback<DetectResponse> {
                 override fun onResponse(
@@ -151,12 +151,7 @@ class CameraFragment : Fragment() {
 
                             val intentDetail = Intent(context, DetailActivity::class.java)
 
-                            intentDetail.putExtra(DetailActivity.PHOTO_DETAIL, "${responseBody.data?.imageUrl}")
-                            intentDetail.putExtra(DetailActivity.PERCENTAGE, "${responseBody.data?.percentage}")
-                            intentDetail.putExtra(DetailActivity.DISEASE_NAME, "${responseBody.data?.diseasesName}")
-                            intentDetail.putExtra(DetailActivity.DESCRIPTION, "${responseBody.data?.description}")
-                            intentDetail.putExtra(DetailActivity.CAUSES, "${responseBody.data?.causes}")
-                            intentDetail.putExtra(DetailActivity.TREATMENT, "${responseBody.data?.treatment}")
+                            intentDetail.putExtra(DetailActivity.ID, "${responseBody.data?.id}")
 
                             startActivity(intentDetail)
                         }

@@ -4,6 +4,7 @@ import com.example.plant.ui.network.response.Data
 import com.example.plant.ui.network.response.DataItem
 import com.example.plant.ui.network.response.DetectResponse
 import com.example.plant.ui.network.response.HistoriesResponse
+import com.example.plant.ui.network.response.HistoryDetailResponse
 import com.example.plant.ui.network.response.LoginResponse
 import com.example.plant.ui.network.response.RegisterResponse
 import okhttp3.MultipartBody
@@ -34,8 +35,9 @@ interface ApiService {
 
     @GET("detect/histories/{id}")
     fun getDetail(
+        @Header("Authorization") token: String,
         @Path("id") id:String
-    )
+    ):Call<HistoryDetailResponse>
 
     @Multipart
     @POST("detect")

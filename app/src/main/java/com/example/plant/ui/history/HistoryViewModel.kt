@@ -23,9 +23,7 @@ class HistoryViewModel:ViewModel() {
     private val _historyList = MutableLiveData<List<DataItem>?>()
     val historyList: MutableLiveData<List<DataItem>?> get() = _historyList
 
-    init {
-        getHistoryList()
-    }
+
 
 
     fun setHistory(listHistory: ArrayList<DataItem>) {
@@ -35,7 +33,7 @@ class HistoryViewModel:ViewModel() {
     }
 
     fun getHistoryList(){
-        val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxODA4MTE0MX0.AFJzmjxV82x1jYh0ZBEF0JEkd6AU7bBQPjm2K31pD0U"
+        val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
         val client = ApiConfig.getApiService().getHistoryList("Bearer $auth")
         client.enqueue(object : Callback<HistoriesResponse> {
             override fun onResponse(
@@ -45,6 +43,7 @@ class HistoryViewModel:ViewModel() {
                 if(response.isSuccessful){
                     val responseBody = response.body()
                     if(responseBody != null){
+                        Log.d(TAG, "id: ${responseBody.data?.get(0)?.id}")
                         _historyList.value = responseBody.data as List<DataItem>?
                     }
                 }else{

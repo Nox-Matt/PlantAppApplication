@@ -16,6 +16,7 @@ import com.example.plant.databinding.FragmentHomeBinding
 import com.example.plant.ui.history.HistoryAdapter
 import com.example.plant.ui.history.HistoryFragment
 import com.example.plant.ui.login.LoginActivity
+import com.example.plant.ui.network.response.DataItem
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,11 +52,13 @@ class HomeFragment : Fragment() {
         val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        homeViewModel.setHistory(setListHistories())
+        homeViewModel.getHistoryList()
 
-//        homeViewModel.historyList.observe(viewLifecycleOwner) {
-//            showRecyclerList(it)
-//        }
+        homeViewModel.historyList.observe(viewLifecycleOwner) {
+            if (it != null) {
+                showRecyclerList(it)
+            }
+        }
 
         val root : View = binding.root
 
@@ -75,26 +78,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setListHistories() : ArrayList<ListHistory>{
-        val dataName = resources.getStringArray(R.array.name_disease)
-        val dataDesc = resources.getStringArray(R.array.desc_disease)
-        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
-        val dataPercentage = resources.getStringArray(R.array.percentage)
-        val dataTime = resources.getStringArray(R.array.date_history)
-        val listHistory = ArrayList<ListHistory>()
-        for(i in 1..2){
-            val history = ListHistory(dataName[i], dataDesc[i], dataPercentage[i], dataTime[i], dataPhoto.getResourceId(i,-1))
-            listHistory.add(history)
-        }
-        return listHistory
-    }
 
-//    private fun showRecyclerList(list:ArrayList<ListHistory>){
-//        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        val listHistoryAdapter = HistoryAdapter()
-//        listHistoryAdapter.submitList(list)
-//        binding.recyclerView.adapter =listHistoryAdapter
-//    }
+
+    private fun showRecyclerList(list:List<DataItem>){
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val listHistoryAdapter = HistoryAdapter()
+        listHistoryAdapter.submitList(list)
+        binding.recyclerView.adapter =listHistoryAdapter
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -25,9 +25,17 @@ class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_
             Glide.with(itemView.context)
                 .load("${history.imageUrl}")
                 .into(binding.imgCardLeaf)
+            val percentage = "${history.percentage}"
+            val percentageS = percentage.split(".")
+            val percentageA = percentageS[1].substring(0,2)
+            val percentageF = "(${percentageS[0]}.$percentageA%)"
+
+            val time = "${history.createdAt}"
+            val timeS = time.split("T")
+            val timeF = timeS[0]
             binding.namaPenyakit.text = "${history.diseasesName}"
-            binding.percentage.text = "${history.percentage}"
-            binding.time.text = "${history.createdAt}"
+            binding.percentage.text = "${percentageF}"
+            binding.time.text = timeF
 
             itemView.setOnClickListener {
                 val intentDetail =Intent(itemView.context, DetailActivity::class.java)
@@ -39,9 +47,7 @@ class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_
                         Pair(binding.percentage, "percentage")
 
                     )
-                intentDetail.putExtra(DetailActivity.PHOTO_DETAIL, history.imageUrl)
-                intentDetail.putExtra(DetailActivity.DISEASE_NAME, history.diseasesName)
-                intentDetail.putExtra(DetailActivity.PERCENTAGE, "${history.percentage}")
+                intentDetail.putExtra(DetailActivity.ID, "${history.id}")
 
 
                 itemView.context.startActivity(intentDetail, optionsCompat.toBundle())

@@ -56,14 +56,13 @@ HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
 
+        historyViewModel.getHistoryList()
 
         historyViewModel.historyList.observe(viewLifecycleOwner) {
             if (it != null) {
                 showRecyclerList(it)
             }
         }
-
-
 
 
         val root : View = binding.root
