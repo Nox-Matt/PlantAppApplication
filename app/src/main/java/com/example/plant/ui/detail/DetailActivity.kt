@@ -26,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
     private var causes:String? = null
     private var treatment:String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,16 +41,8 @@ class DetailActivity : AppCompatActivity() {
 
         val listContent = getDetail()
 
-//        Log.d(TAG, "tes1 ${listContent.get(0)}")
 
-        val sectionsPagerAdapter = SectionPagerAdapter(this, "$description", "$causes", "$treatment")
-        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = findViewById(R.id.tabs)
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-        supportActionBar?.elevation = 0f
+
 
         binding.fabAdd.setOnClickListener {
             Log.d(TAG, "$description")
@@ -84,14 +77,18 @@ class DetailActivity : AppCompatActivity() {
                             val percentageS = percentage.split(".")
                             val percentageA = percentageS.get(1).substring(0, 2)
                             binding.txtPercentage.text = "(${percentageS.get(0)}.$percentageA%)"
-                            val description = responseBody.data?.description
+                            val desc = responseBody.data?.description
                             val causes = responseBody.data?.causes
                             val treatment = responseBody.data?.treatment
-                            setVariation(description, causes,treatment)
-                            listContent.add(description)
-                            listContent.add(causes)
-                            listContent.add(treatment)
 
+                            val sectionsPagerAdapter = SectionPagerAdapter(this@DetailActivity, "$desc", "$causes", "$treatment")
+                            val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+                            viewPager.adapter = sectionsPagerAdapter
+                            val tabs: TabLayout = findViewById(R.id.tabs)
+                            TabLayoutMediator(tabs, viewPager) { tab, position ->
+                                tab.text = resources.getString(TAB_TITLES[position])
+                            }.attach()
+                            supportActionBar?.elevation = 0f
                         }
                     }
                 }
@@ -101,7 +98,6 @@ class DetailActivity : AppCompatActivity() {
                 }
 
             })
-        Log.d(TAG, "testing: ${listContent}")
         return listContent
     }
 
@@ -117,11 +113,25 @@ class DetailActivity : AppCompatActivity() {
         return description
     }
 
-    data class setVariation(
-        val descripion : String?,
-        val causes: String?,
-        val treament: String?
-    )
+    class SetVariation {
+        var description:String? = null
+        var causes:String? = null
+        var treatment:String? = null
+
+        fun setProp(desc:String?, causes:String?, treat:String?){
+            this.description = desc
+            this.causes = causes
+            this.treatment = treat
+        }
+
+        fun getProp():ArrayList<String?>{
+            val listprop :ArrayList<String?> = ArrayList()
+            listprop.add(description)
+            listprop.add(causes)
+            listprop.add(treatment)
+            return listprop
+        }
+    }
 
 
 
