@@ -13,16 +13,21 @@ import com.example.plant.ListHistory
 import com.example.plant.databinding.ItemRowHistoryBinding
 import com.example.plant.ui.detail.DetailActivity
 import androidx.core.util.Pair
+import com.bumptech.glide.Glide
+import com.example.plant.ui.network.response.Data
+import com.example.plant.ui.network.response.DataItem
 
-class HistoryAdapter: ListAdapter<ListHistory, HistoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
 
     class ListViewHolder(val binding: ItemRowHistoryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(history : ListHistory) {
-            binding.imgCardLeaf.setImageResource(history.photo)
-            binding.namaPenyakit.text = "${history.name}"
+        fun bind(history : DataItem) {
+            Glide.with(itemView.context)
+                .load("${history.imageUrl}")
+                .into(binding.imgCardLeaf)
+            binding.namaPenyakit.text = "${history.diseasesName}"
             binding.percentage.text = "${history.percentage}"
-            binding.time.text = "${history.time}"
+            binding.time.text = "${history.createdAt}"
 
             itemView.setOnClickListener {
                 val intentDetail =Intent(itemView.context, DetailActivity::class.java)
@@ -34,9 +39,9 @@ class HistoryAdapter: ListAdapter<ListHistory, HistoryAdapter.ListViewHolder>(DI
                         Pair(binding.percentage, "percentage")
 
                     )
-                intentDetail.putExtra(DetailActivity.PHOTO_DETAIL, history.photo)
-                intentDetail.putExtra(DetailActivity.DISEASE_NAME, history.name)
-                intentDetail.putExtra(DetailActivity.PERCENTAGE, history.percentage)
+                intentDetail.putExtra(DetailActivity.PHOTO_DETAIL, history.imageUrl)
+                intentDetail.putExtra(DetailActivity.DISEASE_NAME, history.diseasesName)
+                intentDetail.putExtra(DetailActivity.PERCENTAGE, "${history.percentage}")
 
 
                 itemView.context.startActivity(intentDetail, optionsCompat.toBundle())
@@ -56,17 +61,17 @@ class HistoryAdapter: ListAdapter<ListHistory, HistoryAdapter.ListViewHolder>(DI
     }
 
     companion object{
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListHistory>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataItem>() {
             override fun areItemsTheSame(
-                oldItem: ListHistory,
-                newItem: ListHistory
+                oldItem: DataItem,
+                newItem: DataItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ListHistory,
-                newItem: ListHistory
+                oldItem: DataItem,
+                newItem: DataItem
             ): Boolean {
                 return oldItem == newItem
             }

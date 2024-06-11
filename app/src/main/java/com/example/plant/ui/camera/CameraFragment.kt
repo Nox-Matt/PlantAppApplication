@@ -135,7 +135,7 @@ class CameraFragment : Fragment() {
                 requestImageFile
             )
 
-            val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxNzkyNzEyM30.uLBSnh7fjmUA6F179Vfu3JS1b-haebY3VZmmLLKjxA0"
+            val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxODA4MTE0MX0.AFJzmjxV82x1jYh0ZBEF0JEkd6AU7bBQPjm2K31pD0U"
             val client = ApiConfig.getApiService().detectImage("Bearer $auth", multipartBody)
             client.enqueue(object : Callback<DetectResponse> {
                 override fun onResponse(

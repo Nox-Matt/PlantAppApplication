@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            Log.d(TAG, "${responseBody.message}")
+                            Log.d(TAG, "${responseBody.token}")
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                         } else {

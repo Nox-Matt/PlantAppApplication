@@ -1,6 +1,7 @@
 package com.example.plant.ui.history
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plant.ListHistory
 import com.example.plant.R
 import com.example.plant.databinding.FragmentHistoryBinding
+import com.example.plant.ui.network.ApiConfig
+import com.example.plant.ui.network.response.DataItem
+import com.example.plant.ui.network.response.HistoriesResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,11 +55,16 @@ HistoryFragment : Fragment() {
         val historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
-        historyViewModel.setHistory(setListHistories())
+
 
         historyViewModel.historyList.observe(viewLifecycleOwner) {
-            showRecyclerList(it)
+            if (it != null) {
+                showRecyclerList(it)
+            }
         }
+
+
+
 
         val root : View = binding.root
 
@@ -75,7 +87,11 @@ HistoryFragment : Fragment() {
         return listHistory
     }
 
-    private fun showRecyclerList(list:ArrayList<ListHistory>){
+
+
+
+
+    private fun showRecyclerList(list:List<DataItem>){
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         val listHistoryAdapter = HistoryAdapter()
         listHistoryAdapter.submitList(list)
@@ -100,6 +116,8 @@ HistoryFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        const val TAG = "HistoryFragmet"
     }
 }
 

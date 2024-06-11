@@ -53,9 +53,9 @@ class HomeFragment : Fragment() {
 
         homeViewModel.setHistory(setListHistories())
 
-        homeViewModel.historyList.observe(viewLifecycleOwner) {
-            showRecyclerList(it)
-        }
+//        homeViewModel.historyList.observe(viewLifecycleOwner) {
+//            showRecyclerList(it)
+//        }
 
         val root : View = binding.root
 
@@ -89,12 +89,12 @@ class HomeFragment : Fragment() {
         return listHistory
     }
 
-    private fun showRecyclerList(list:ArrayList<ListHistory>){
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val listHistoryAdapter = HistoryAdapter()
-        listHistoryAdapter.submitList(list)
-        binding.recyclerView.adapter =listHistoryAdapter
-    }
+//    private fun showRecyclerList(list:ArrayList<ListHistory>){
+//        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        val listHistoryAdapter = HistoryAdapter()
+//        listHistoryAdapter.submitList(list)
+//        binding.recyclerView.adapter =listHistoryAdapter
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

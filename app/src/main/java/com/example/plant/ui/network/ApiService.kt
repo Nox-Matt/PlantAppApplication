@@ -1,7 +1,9 @@
 package com.example.plant.ui.network
 
 import com.example.plant.ui.network.response.Data
+import com.example.plant.ui.network.response.DataItem
 import com.example.plant.ui.network.response.DetectResponse
+import com.example.plant.ui.network.response.HistoriesResponse
 import com.example.plant.ui.network.response.LoginResponse
 import com.example.plant.ui.network.response.RegisterResponse
 import okhttp3.MultipartBody
@@ -41,4 +43,9 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Part file:MultipartBody.Part
     ): Call<DetectResponse>
+
+    @GET("detect/histories")
+    fun getHistoryList(
+        @Header("Authorization") token :String
+    ): Call<HistoriesResponse>
 }
