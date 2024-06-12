@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class DetailForumResponse(
 
 	@field:SerializedName("data")
-	val data: AnswersItem? = null,
+	val data: DataComment? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
@@ -17,7 +17,7 @@ data class AnswersItem(
 	val createdAt: String? = null,
 
 	@field:SerializedName("answer")
-	val answer: List<DataComment?>? = null,
+	val answer: String? = null,
 
 	@field:SerializedName("id")
 	val id: String? = null,

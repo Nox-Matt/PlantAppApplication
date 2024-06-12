@@ -1,37 +1,44 @@
 package com.example.plant.ui.form
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plant.R
-import com.example.plant.ui.data.Comment
+import com.example.plant.databinding.ItemRowCommentBinding
+import com.example.plant.ui.network.response.AnswersItem
 import com.example.plant.ui.network.response.DataComment
 
-class CommentAdapter(private val comments: List<DataComment>) :
-    RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+class CommentAdapter : ListAdapter<AnswersItem, CommentAdapter.CommentViewHolder>(DIFF_CALLBACK) {
 
-    inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val usernameTextView: TextView = itemView.findViewById(R.id.txt_username)
-        val timeTextView: TextView = itemView.findViewById(R.id.txtTime)
-        val commentTextView: TextView = itemView.findViewById(R.id.txtComment)
-        val commentTextCount: TextView = itemView.findViewById(R.id.commentTextCount)
+    class CommentViewHolder(private val binding: ItemRowCommentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(comment: AnswersItem) {
+            binding.txtUsername.text = comment.username ?: ""
+            binding.txtTime.text = comment.createdAt ?: ""
+            binding.txtComment.text = comment.answer ?: ""
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_comment, parent, false)
-        return CommentViewHolder(view)
+        val binding = ItemRowCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CommentViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        val comment = comments[position]
-        holder.usernameTextView.text = comment.username ?: ""
-        holder.timeTextView.text = comment.createdAt ?: ""
-        holder.commentTextView.text = comment.question ?: ""
-        holder.commentTextCount.text = "${comments.size} Comments"
+        val commentItem = getItem(position)
+        holder.bind(commentItem)
     }
 
-    override fun getItemCount(): Int {
-        return comments.size
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AnswersItem>() {
+            override fun areItemsTheSame(oldItem: AnswersItem, newItem: AnswersItem): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: AnswersItem, newItem: AnswersItem): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

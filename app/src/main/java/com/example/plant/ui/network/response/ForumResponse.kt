@@ -26,5 +26,8 @@ data class DataForumItem(
 	val title: String? = null,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String? = null,
+
+	@field:SerializedName("commentCount")
+	val commentCount: Int? = null
 )

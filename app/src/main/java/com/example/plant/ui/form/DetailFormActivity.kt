@@ -1,21 +1,9 @@
 package com.example.plant.ui.form
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.plant.R
-import com.example.plant.data.FormList
 import com.example.plant.databinding.ActivityDetailFormBinding
 
 class DetailFormActivity : AppCompatActivity() {
@@ -28,32 +16,37 @@ class DetailFormActivity : AppCompatActivity() {
         binding = ActivityDetailFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val formId = intent.getStringExtra("form_id") ?: ""
         val formTitle = intent.getStringExtra("form_title") ?: ""
         val formUsername = intent.getStringExtra("form_username") ?: ""
         val formDate = intent.getStringExtra("form_date") ?: ""
-
+        val formId = intent.getStringExtra("form_id") ?: ""
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYzMjg1MTktNTU5My00YWE4LThhNjgtZTQwOGE2ZGY3NjRjIn0sImlhdCI6MTcxODIwMjUwNX0.LgM5PsW3Y1QUtKxDMSi9dagxpgNy-bVeNidGlzk2uqc"
 
         binding.detailUsername.text = formUsername
         binding.detailDate.text = formDate
         binding.detailQnA.text = formTitle
+        viewModel.getCommentsForForum(formId, token)
+
 
         binding.imageButton.setOnClickListener {
             val commentText = binding.commentText.text.toString()
             if (commentText.isNotBlank()) {
-                val formId = intent.getStringExtra("form_id") ?: ""
-                val token =
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxODA4MTE0MX0.AFJzmjxV82x1jYh0ZBEF0JEkd6AU7bBQPjm2K31pD0U"
-                viewModel.postComment(formId, commentText, token)
+                viewModel.postComment(token, formId, commentText)
                 binding.commentText.text.clear()
+                viewModel.getCommentsForForum(formId, token)
+            } else {
+                binding.commentText.error = "Please enter a comment"
             }
         }
 
         val recyclerView = binding.recycleComment
         recyclerView.layoutManager = LinearLayoutManager(this)
-        viewModel.commentList.observe(this) { comments ->
-            val adapter = CommentAdapter(comments)
-            recyclerView.adapter = adapter
+
+        val adapter = CommentAdapter()
+        recyclerView.adapter = adapter
+
+        viewModel.commentList.observe(this) { discussion ->
+            adapter.submitList(discussion)
         }
 
         val back = binding.imgBack

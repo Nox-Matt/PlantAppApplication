@@ -13,6 +13,8 @@ import com.example.plant.ui.network.response.LoginResponse
 import com.example.plant.ui.network.response.RegisterResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -48,12 +50,14 @@ interface ApiService {
         @Header("Authorization") token:String
     ): Call<ForumResponse>
 
-    @GET("forum/{id}/answers")
-    fun postComment(
-        @Header("Authorization") token:String,
-        @Path("id") id:String,
-        @Field("answer") answer:String
-    ): Call<CommentResponse>
+    @POST("forum/{id}/answers")
+    suspend fun postComment(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body answer: Answer
+    ): Response<CommentResponse>
+    data class Answer(val answer: String)
+
     @GET("forum/{id}")
     fun getForumDetail(
         @Header("Authorization") token:String,
