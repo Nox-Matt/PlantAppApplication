@@ -28,26 +28,37 @@ class DetailFormActivity : AppCompatActivity() {
         binding = ActivityDetailFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val form = intent.getParcelableExtra<FormList>("form")
-        form?.let {
-            binding.detailUsername.text = it.name
-            binding.detailDate.text = it.date
-            binding.detailQnA.text = it.title
+        val formId = intent.getStringExtra("form_id") ?: ""
+        val formTitle = intent.getStringExtra("form_title") ?: ""
+        val formUsername = intent.getStringExtra("form_username") ?: ""
+        val formDate = intent.getStringExtra("form_date") ?: ""
+
+
+        binding.detailUsername.text = formUsername
+        binding.detailDate.text = formDate
+        binding.detailQnA.text = formTitle
+
+        binding.imageButton.setOnClickListener {
+            val commentText = binding.commentText.text.toString()
+            if (commentText.isNotBlank()) {
+                val formId = intent.getStringExtra("form_id") ?: ""
+                val token =
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxODA4MTE0MX0.AFJzmjxV82x1jYh0ZBEF0JEkd6AU7bBQPjm2K31pD0U"
+                viewModel.postComment(formId, commentText, token)
+                binding.commentText.text.clear()
+            }
         }
 
-        //Button Back To FormFragment
-        val back = binding.imgBack
-        back.setOnClickListener{
-            onBackPressed()
-        }
-
-
-        // Initialize RecyclerView and Adapter
         val recyclerView = binding.recycleComment
         recyclerView.layoutManager = LinearLayoutManager(this)
-        viewModel.commentList.observe(this, Observer { comments ->
+        viewModel.commentList.observe(this) { comments ->
             val adapter = CommentAdapter(comments)
             recyclerView.adapter = adapter
-        })
+        }
+
+        val back = binding.imgBack
+        back.setOnClickListener {
+            onBackPressed()
+        }
     }
 }

@@ -1,8 +1,8 @@
 package com.example.plant.ui.network
 
 import com.example.plant.ui.network.response.AddForumResponse
-import com.example.plant.ui.network.response.Data
-import com.example.plant.ui.network.response.DataItem
+import com.example.plant.ui.network.response.CommentResponse
+import com.example.plant.ui.network.response.DetailForumResponse
 import com.example.plant.ui.network.response.DetectResponse
 import com.example.plant.ui.network.response.ForumResponse
 import com.example.plant.ui.network.response.HistoriesResponse
@@ -45,6 +45,18 @@ interface ApiService {
     fun getForumList(
         @Header("Authorization") token:String
     ): Call<ForumResponse>
+
+    @GET("forum/{id}/answers")
+    fun postComment(
+        @Header("Authorization") token:String,
+        @Path("id") id:String,
+        @Field("answer") answer:String
+    ): Call<CommentResponse>
+    @GET("forum/{id}")
+    fun getForumDetail(
+        @Header("Authorization") token:String,
+        @Path("id") id:String
+    ): Call<DetailForumResponse>
 
     @FormUrlEncoded
     @POST("forum")
