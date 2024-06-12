@@ -11,7 +11,7 @@ import com.example.plant.databinding.ItemRowDiscussionBinding
 import com.example.plant.ui.network.response.DataForumItem
 
 
-class FormAdapter(private val onItemClick: (FormList) -> Unit) : ListAdapter<FormList, FormAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class FormAdapter(private val onItemClick: (DataForumItem) -> Unit) : ListAdapter<DataForumItem, FormAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     class ListViewHolder(val binding: ItemRowDiscussionBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(form: DataForumItem) {
