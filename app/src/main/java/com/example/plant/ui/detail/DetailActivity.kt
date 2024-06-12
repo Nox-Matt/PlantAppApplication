@@ -38,7 +38,6 @@ class DetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//        getDetail()
 
 
         val detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)

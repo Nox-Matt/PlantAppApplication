@@ -3,6 +3,7 @@ package com.example.plant.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -10,9 +11,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.datastore.core.DataStore
+import androidx.lifecycle.ViewModelProvider
 import com.example.plant.MainActivity
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityLoginBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.WelcomeActivity
 import com.example.plant.ui.network.ApiConfig
 import com.example.plant.ui.network.response.LoginResponse
@@ -46,10 +53,41 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        val pref = UserPreference.getInstance(application.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(DataStoreViewModel::class.java)
+
         binding.loginButton.setOnClickListener {
             val username = binding.edtTextUsername.text.toString()
             val password = binding.edtTextPass.text.toString()
-            login(username, password)
+            loginViewModel.login(username, password)
+
+            loginViewModel.isEmpty.observe(this){
+                if(it){
+                    Toast.makeText(this, "Make sure all of your credential is inputted correctly", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            loginViewModel.isError.observe(this){
+                if(it == false){
+                    loginViewModel.token.observe(this){token->
+                        if (token != null) {
+                            datastoreViewModel.setTokenKey(token)
+                            datastoreViewModel.setValid(true)
+                            val intentMain = Intent(this@LoginActivity, MainActivity::class.java)
+                            startActivity(intentMain)
+                        }
+                    }
+                }else{
+                    showErrorDialog()
+                }
+            }
+
+            loginViewModel.isLoading.observe(this){
+                showLoading(it)
+            }
+//            login(username, password)
         }
 
         binding.txtLogin2.setOnClickListener {
@@ -106,6 +144,14 @@ class LoginActivity : AppCompatActivity() {
             }
             .create()
         dialog.show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
     companion object{
         const val TAG = "LoginActivity"

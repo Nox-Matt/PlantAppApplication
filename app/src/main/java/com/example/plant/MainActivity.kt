@@ -2,14 +2,19 @@ package com.example.plant
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.plant.databinding.ActivityMainBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -49,5 +54,17 @@ class MainActivity : AppCompatActivity() {
 //            val intent = Intent(this, WelcomeActivity::class.java)
 //            startActivity(intent)
 //        }
+
+        val pref = UserPreference.getInstance(application.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getTokenKey().observe(this){
+            Log.d(TAG, "token: $it")
+        }
+    }
+
+    companion object{
+        const val TAG = "MainActivity"
     }
 }

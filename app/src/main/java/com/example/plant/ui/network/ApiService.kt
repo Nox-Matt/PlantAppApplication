@@ -3,6 +3,7 @@ package com.example.plant.ui.network
 import com.example.plant.ui.network.response.AddForumResponse
 import com.example.plant.ui.network.response.CommentResponse
 import com.example.plant.ui.network.response.DetailForumResponse
+import com.example.plant.ui.network.response.DetailGuidanceResponse
 import com.example.plant.ui.network.response.DetectResponse
 import com.example.plant.ui.network.response.ForumResponse
 import com.example.plant.ui.network.response.GuidanceResponse
@@ -83,4 +84,10 @@ interface ApiService {
     fun getGuidanceList(
         @Header("Authorization") token : String
     ):Call<GuidanceResponse>
+
+    @GET("guides/{id}")
+    fun getGuidanceDetail(
+        @Header("Authorization") token : String,
+        @Path("id") id:String
+    ):Call<DetailGuidanceResponse>
 }

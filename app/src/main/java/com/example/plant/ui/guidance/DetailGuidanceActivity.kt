@@ -7,7 +7,9 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.plant.R
 import com.example.plant.databinding.ActivityDetailGuidanceBinding
 import com.google.android.material.tabs.TabLayout
@@ -26,16 +28,43 @@ class DetailGuidanceActivity : AppCompatActivity() {
             insets
         }
 
-        val sectionsPagerAdapter = SectionGuidanceAdapter(this, "tes", "tes", "tes", "tes", "tes")
-        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
-        viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = findViewById(R.id.tabs)
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-        supportActionBar?.elevation = 0f
+        val detailguidanceViewModel = ViewModelProvider(this).get(DetailGuidanceViewModel::class.java)
+        detailguidanceViewModel.getDetailGuide("${intent.getStringExtra(ID)}")
 
-        Log.d(TAG, "${intent.getStringExtra(ID)}")
+        detailguidanceViewModel.dataList.observe(this){
+            if (it != null) {
+                binding.titleDetailGuidance.text = it.title
+                Glide.with(this)
+                    .load("${it.imageUrl}")
+                    .into(binding.imgDetailGuide)
+            }
+        }
+
+        detailguidanceViewModel.contentList.observe(this){content->
+            if(content != null){
+                val contentI = content.get(0)
+                val sectionsPagerAdapter = SectionGuidanceAdapter(this,
+                    "${contentI?.step1Title}", "${contentI?.step1Body}",
+                    "${contentI?.step2Title}", "${contentI?.step2Body}",
+                    "${contentI?.step3Title}", "${contentI?.step3Body}",
+                    "${contentI?.step4Title}", "${contentI?.step4Body}",
+                    "${contentI?.step5Title}", "${contentI?.step5Body}")
+                val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+                viewPager.adapter = sectionsPagerAdapter
+                val tabs: TabLayout = findViewById(R.id.tabs)
+                TabLayoutMediator(tabs, viewPager) { tab, position ->
+                    tab.text = resources.getString(TAB_TITLES[position])
+                }.attach()
+                supportActionBar?.elevation = 0f
+            }
+
+        }
+
+
+
+
+
+
         binding.imgBack.setOnClickListener{
             onBackPressed()
         }

@@ -23,6 +23,7 @@ class Step4Fragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var content : TextView
+    private lateinit var title : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,10 @@ class Step4Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         content = view.findViewById(R.id.txt_content)
+        title = view.findViewById(R.id.txt_step)
         val con = arguments?.getString(Step1Fragment.CONTENT)
+        val tit = arguments?.getString(Step1Fragment.TITLE)
+        title.text = tit
 
         content.text =con
     }
@@ -66,6 +70,7 @@ class Step4Fragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+        const val TITLE = "title"
         const val CONTENT = "content"
     }
 }
