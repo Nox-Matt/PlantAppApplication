@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.plant.R
@@ -37,15 +38,32 @@ class DetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+//        getDetail()
 
 
-        val listContent = getDetail()
+        val detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+        val id = intent.getStringExtra(ID)
+        detailViewModel.getDetail("$id")
+        detailViewModel.detaillist.observe(this){
+            if (it != null) {
+                Glide.with(this)
+                    .load("${it.imageUrl}")
+                    .into(binding.imgDetail)
+                binding.txtNama.text = it.diseasesName
+                val percentage = "${it.percentage}"
+                val percentageS = percentage.split(".")
+                val percentageA = percentageS.get(1).substring(0, 2)
+                binding.txtPercentage.text = "(${percentageS.get(0)}.$percentageA%)"
 
-
-
-
-        binding.fabAdd.setOnClickListener {
-            Log.d(TAG, "$description")
+                val sectionsPagerAdapter = SectionPagerAdapter(this@DetailActivity, "${it.description}", "${it.causes}", "${it.treatment}")
+                val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+                viewPager.adapter = sectionsPagerAdapter
+                val tabs: TabLayout = findViewById(R.id.tabs)
+                TabLayoutMediator(tabs, viewPager) { tab, position ->
+                    tab.text = resources.getString(TAB_TITLES[position])
+                }.attach()
+                supportActionBar?.elevation = 0f
+            }
         }
 
 
