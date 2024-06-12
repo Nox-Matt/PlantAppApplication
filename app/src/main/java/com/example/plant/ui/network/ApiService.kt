@@ -5,6 +5,7 @@ import com.example.plant.ui.network.response.CommentResponse
 import com.example.plant.ui.network.response.DetailForumResponse
 import com.example.plant.ui.network.response.DetectResponse
 import com.example.plant.ui.network.response.ForumResponse
+import com.example.plant.ui.network.response.GuidanceResponse
 import com.example.plant.ui.network.response.HistoriesResponse
 import com.example.plant.ui.network.response.HistoryDetailResponse
 import com.example.plant.ui.network.response.LoginResponse
@@ -77,4 +78,9 @@ interface ApiService {
     fun getHistoryList(
         @Header("Authorization") token :String
     ): Call<HistoriesResponse>
+
+    @GET("guides")
+    fun getGuidanceList(
+        @Header("Authorization") token : String
+    ):Call<GuidanceResponse>
 }

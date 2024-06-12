@@ -13,6 +13,7 @@ import com.example.plant.R
 import com.example.plant.databinding.FragmentGuidanceBinding
 import com.example.plant.databinding.FragmentHistoryBinding
 import com.example.plant.ui.history.HistoryAdapter
+import com.example.plant.ui.network.response.DataGuide
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,7 +50,7 @@ class GuidanceFragment : Fragment() {
         val guidanceViewModel = ViewModelProvider(this).get(GuidanceViewModel::class.java)
         _binding = FragmentGuidanceBinding.inflate(inflater, container, false)
 
-        guidanceViewModel.setGuidance(setListGuidance())
+        guidanceViewModel.getGuidanceList()
 
         guidanceViewModel.guidanceList.observe(viewLifecycleOwner){
             showRecyclerList(it)
@@ -72,7 +73,7 @@ class GuidanceFragment : Fragment() {
         return listGuidance
     }
 
-    private fun showRecyclerList(list: ArrayList<ListGuidance>){
+    private fun showRecyclerList(list: List<DataGuide?>?){
         binding.rvGuidance.layoutManager = LinearLayoutManager(requireContext())
         val listGuidanceAdapter = GuidanceAdapter()
         listGuidanceAdapter.submitList(list)

@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/img_guide"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             card_view:layout_constraintTop_toTopOf="parent"
             android:scaleType="fitXY"
             android:src="@drawable/img_guidance"/>
