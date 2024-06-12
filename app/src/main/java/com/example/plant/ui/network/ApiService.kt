@@ -1,5 +1,6 @@
 package com.example.plant.ui.network
 
+import com.example.plant.ui.network.response.AddForumResponse
 import com.example.plant.ui.network.response.Data
 import com.example.plant.ui.network.response.DataItem
 import com.example.plant.ui.network.response.DetectResponse
@@ -38,6 +39,19 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id:String
     ):Call<HistoryDetailResponse>
+
+    @GET("forum")
+    fun getForumList(
+        @Header("Authorization") token:String
+    ): Call<List<DataItem>>
+
+    @FormUrlEncoded
+    @POST("forum")
+    fun addForum(
+        @Header("Authorization") token:String,
+        @Field("title") title: String,
+        @Field("question") question: String
+    ): Call<AddForumResponse>
 
     @Multipart
     @POST("detect")
