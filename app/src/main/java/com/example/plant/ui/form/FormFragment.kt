@@ -53,10 +53,12 @@ class FormFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        // Observing LiveData
-        formViewModel.formList.observe(viewLifecycleOwner, Observer { formList ->
-            formAdapter.submitList(formList)
-        })
+        formViewModel.formList.observe(viewLifecycleOwner) { forumList ->
+            formAdapter.submitList(forumList)
+        }
+
+        // Fetch the forum list
+        formViewModel.getFormList()
 
         return root
     }

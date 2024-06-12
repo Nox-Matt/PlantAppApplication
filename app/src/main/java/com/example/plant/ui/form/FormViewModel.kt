@@ -16,6 +16,7 @@ class FormViewModel : ViewModel() {
     private val _formList = MutableLiveData<List<DataForumItem>>()
     val formList: LiveData<List<DataForumItem>> get() = _formList
 
+
     fun getFormList() {
         val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzQwNDk1ODQtYzAwOC00MzBjLWE2ZTAtNzJiODFkYzQyZjEyIn0sImlhdCI6MTcxODA4MTE0MX0.AFJzmjxV82x1jYh0ZBEF0JEkd6AU7bBQPjm2K31pD0U"
         val client = ApiConfig.getApiService().getForumList("Bearer $auth")

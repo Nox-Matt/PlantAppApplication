@@ -9,7 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.plant.R
 import com.example.plant.databinding.ActivityAddFormBinding
-import com.example.plant.databinding.ActivityDetailFormBinding
 import com.example.plant.ui.network.ApiConfig
 import com.example.plant.ui.network.response.AddForumResponse
 import retrofit2.Call

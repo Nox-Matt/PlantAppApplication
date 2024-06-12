@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.plant.data.FormList
 import com.example.plant.databinding.ItemRowDiscussionBinding
+import com.example.plant.ui.network.response.DataForumItem
 
 
 class FormAdapter(private val onItemClick: (FormList) -> Unit) : ListAdapter<FormList, FormAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     class ListViewHolder(val binding: ItemRowDiscussionBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(form: FormList) {
-            binding.txtUsername.text = form.name
-            binding.txtTime.text = form.date
-            binding.txtQnaTitle.text = form.title
+        fun bind(form: DataForumItem) {
+            binding.txtUsername.text = form.username ?: ""
+            binding.txtTime.text = form.createdAt ?: ""
+            binding.txtQnaTitle.text = form.title ?: ""
         }
     }
 
@@ -33,21 +34,14 @@ class FormAdapter(private val onItemClick: (FormList) -> Unit) : ListAdapter<For
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FormList>() {
-            override fun areItemsTheSame(
-                oldItem: FormList,
-                newItem: FormList
-            ): Boolean {
-                return oldItem == newItem
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataForumItem>() {
+            override fun areItemsTheSame(oldItem: DataForumItem, newItem: DataForumItem): Boolean {
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(
-                oldItem: FormList,
-                newItem: FormList
-            ): Boolean {
+            override fun areContentsTheSame(oldItem: DataForumItem, newItem: DataForumItem): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }
