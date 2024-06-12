@@ -73,9 +73,7 @@ class HomeFragment : Fragment() {
             startActivity(intentLogin)
         }
 
-        binding.seeAllText.setOnClickListener {
-            view.findNavController().navigate(R.id.action_navigation_Home_to_navigation_History)
-        }
+
     }
 
 
