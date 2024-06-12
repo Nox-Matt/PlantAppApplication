@@ -36,7 +36,9 @@ class FormFragment : Fragment() {
         formAdapter = FormAdapter { form ->
 
             val intent = Intent(context, DetailFormActivity::class.java)
-            intent.putExtra("form", form)
+            intent.putExtra("form_id", form.id)
+            intent.putExtra("form_title", form.title)
+            intent.putExtra("form_username", form.username)
             startActivity(intent)
         }
 
