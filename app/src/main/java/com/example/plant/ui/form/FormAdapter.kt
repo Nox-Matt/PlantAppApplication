@@ -18,6 +18,7 @@ class FormAdapter(private val onItemClick: (DataForumItem) -> Unit) : ListAdapte
             binding.txtUsername.text = form.username ?: ""
             binding.txtTime.text = form.createdAt ?: ""
             binding.txtQnaTitle.text = form.title ?: ""
+            binding.txtQnaDesc.text = form.question ?: ""
         }
     }
 

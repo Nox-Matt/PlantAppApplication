@@ -10,7 +10,8 @@
     <string name="nama_penyakit">Nama Penyakit</string>
     <string name="percentage">(%)</string>
     <string name="time">dd-mm-yyyy</string>
-    <string name="qna_title">QNA TItle</string>
+    <string name="qna_title">QNA Title</string>
+    <string name="qna_desc">QNA Description</string>"
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_form_fragment">Hello form fragment</string>

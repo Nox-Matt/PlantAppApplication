@@ -64,13 +64,15 @@ interface ApiService {
         @Path("id") id:String
     ): Call<DetailForumResponse>
 
-    @FormUrlEncoded
     @POST("forum")
     fun addForum(
-        @Header("Authorization") token:String,
-        @Field("title") title: String,
-        @Field("question") question: String
+        @Header("Authorization") token: String,
+        @Body formRequest: FormRequest
     ): Call<AddForumResponse>
+    data class FormRequest(
+        val title: String,
+        val question: String
+    )
 
     @Multipart
     @POST("detect")

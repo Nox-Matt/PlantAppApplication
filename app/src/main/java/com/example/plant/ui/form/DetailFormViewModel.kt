@@ -21,8 +21,6 @@ class DetailFormViewModel : ViewModel() {
     private val _commentList = MutableLiveData<List<AnswersItem>>()
     val commentList: LiveData<List<AnswersItem>> get() = _commentList
 
-    private val _postCommentResponse = MutableLiveData<CommentResponse>()
-
     fun getCommentsForForum(forumId: String, token: String) {
         ApiConfig.getApiService().getForumDetail("Bearer $token", forumId).enqueue(object : Callback<DetailForumResponse> {
             override fun onResponse(
