@@ -11,7 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plant.ListHistory
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentHistoryBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.network.ApiConfig
 import com.example.plant.ui.network.response.DataItem
 import com.example.plant.ui.network.response.HistoriesResponse
@@ -55,8 +59,13 @@ HistoryFragment : Fragment() {
         val historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
+        val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
 
-        historyViewModel.getHistoryList()
+        datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
+            historyViewModel.getHistoryList(it)
+        }
 
         historyViewModel.historyList.observe(viewLifecycleOwner) {
             if (it != null) {

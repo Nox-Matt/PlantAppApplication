@@ -11,9 +11,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.plant.MainActivity
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityRegisterBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.WelcomeActivity
 import com.example.plant.ui.login.LoginActivity
 import com.example.plant.ui.network.ApiConfig
@@ -38,6 +43,17 @@ class RegisterActivity : AppCompatActivity() {
 
             }
         })
+
+        val pref = UserPreference.getInstance(this.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getValid().observe(this){
+            if(it == false){
+                val intenMain = Intent(this, MainActivity::class.java)
+                startActivity(intenMain)
+            }
+        }
 
 
         val hyperlinkLogin: TextView = findViewById(R.id.hyperlinkLogin)

@@ -25,16 +25,8 @@ class HistoryViewModel:ViewModel() {
 
 
 
-
-    fun setHistory(listHistory: ArrayList<DataItem>) {
-        viewModelScope.launch {
-            _historyList.value = listHistory
-        }
-    }
-
-    fun getHistoryList(){
-        val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
-        val client = ApiConfig.getApiService().getHistoryList("Bearer $auth")
+    fun getHistoryList(token: String){
+        val client = ApiConfig.getApiService().getHistoryList("Bearer $token")
         client.enqueue(object : Callback<HistoriesResponse> {
             override fun onResponse(
                 call: Call<HistoriesResponse>,

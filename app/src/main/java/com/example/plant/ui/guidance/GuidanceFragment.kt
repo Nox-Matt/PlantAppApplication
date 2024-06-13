@@ -10,8 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plant.ListGuidance
 import com.example.plant.ListHistory
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentGuidanceBinding
 import com.example.plant.databinding.FragmentHistoryBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.history.HistoryAdapter
 import com.example.plant.ui.network.response.DataGuide
 
@@ -50,7 +54,15 @@ class GuidanceFragment : Fragment() {
         val guidanceViewModel = ViewModelProvider(this).get(GuidanceViewModel::class.java)
         _binding = FragmentGuidanceBinding.inflate(inflater, container, false)
 
-        guidanceViewModel.getGuidanceList()
+        val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
+            guidanceViewModel.getGuidanceList(it)
+        }
+
+
 
         guidanceViewModel.guidanceList.observe(viewLifecycleOwner){
             showRecyclerList(it)

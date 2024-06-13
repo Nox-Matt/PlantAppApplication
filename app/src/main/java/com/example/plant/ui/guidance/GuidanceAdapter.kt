@@ -2,6 +2,7 @@ package com.example.plant.ui.guidance
 
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -32,6 +33,8 @@ class GuidanceAdapter : ListAdapter<DataGuide, GuidanceAdapter.ListViewHolder>(D
         }
     }
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemRowGuidanceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
@@ -43,6 +46,7 @@ class GuidanceAdapter : ListAdapter<DataGuide, GuidanceAdapter.ListViewHolder>(D
     }
 
     companion object{
+        const val TAG = "guide id"
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataGuide>() {
             override fun areItemsTheSame(
                 oldItem: DataGuide,

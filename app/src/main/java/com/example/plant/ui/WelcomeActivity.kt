@@ -9,8 +9,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.plant.MainActivity
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityWelcomeBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.login.LoginActivity
 import com.example.plant.ui.register.RegisterActivity
 
@@ -29,6 +35,17 @@ class WelcomeActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener {
             val intentRegister = Intent(this, RegisterActivity::class.java)
             startActivity(intentRegister)
+        }
+
+        val pref = UserPreference.getInstance(this.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getValid().observe(this){
+            if(it == false){
+                val intenMain = Intent(this, MainActivity::class.java)
+                startActivity(intenMain)
+            }
         }
 
         playAnimation()

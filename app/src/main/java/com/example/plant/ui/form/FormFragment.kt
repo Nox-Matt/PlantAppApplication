@@ -10,7 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentFormBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FormFragment : Fragment() {
@@ -60,7 +64,14 @@ class FormFragment : Fragment() {
         }
 
         // Fetch the forum list
-        formViewModel.getFormList()
+        val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
+            formViewModel.getFormList(it)
+        }
+
 
         return root
     }

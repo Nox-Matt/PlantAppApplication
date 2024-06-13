@@ -11,7 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityDetailGuidanceBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -29,7 +33,14 @@ class DetailGuidanceActivity : AppCompatActivity() {
         }
 
         val detailguidanceViewModel = ViewModelProvider(this).get(DetailGuidanceViewModel::class.java)
-        detailguidanceViewModel.getDetailGuide("${intent.getStringExtra(ID)}")
+        val pref = UserPreference.getInstance(this.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getTokenKey().observe(this){
+            detailguidanceViewModel.getDetailGuide(it, "${intent.getStringExtra(ID)}")
+        }
+
 
         detailguidanceViewModel.dataList.observe(this){
             if (it != null) {

@@ -16,8 +16,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentCameraBinding
 import com.example.plant.getImageUri
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.reduceFileImage
 import com.example.plant.ui.detail.DetailActivity
 import com.example.plant.ui.network.ApiConfig
@@ -119,12 +123,17 @@ class CameraFragment : Fragment() {
             startCamera()
         }
         binding.analyzeButton.setOnClickListener{
-            analyzeImage()
+            val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
+            val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+                DataStoreViewModel::class.java)
+            datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
+                analyzeImage(it)
+            }
         }
         return root
     }
 
-    private fun analyzeImage() {
+    private fun analyzeImage(token :String ) {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")

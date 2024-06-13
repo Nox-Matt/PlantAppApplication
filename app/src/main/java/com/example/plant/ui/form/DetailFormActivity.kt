@@ -3,8 +3,13 @@ package com.example.plant.ui.form
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityDetailFormBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 
 class DetailFormActivity : AppCompatActivity() {
 
@@ -20,22 +25,32 @@ class DetailFormActivity : AppCompatActivity() {
         val formUsername = intent.getStringExtra("form_username") ?: ""
         val formDate = intent.getStringExtra("form_date") ?: ""
         val formId = intent.getStringExtra("form_id") ?: ""
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYzMjg1MTktNTU5My00YWE4LThhNjgtZTQwOGE2ZGY3NjRjIn0sImlhdCI6MTcxODIwMjUwNX0.LgM5PsW3Y1QUtKxDMSi9dagxpgNy-bVeNidGlzk2uqc"
 
         binding.detailUsername.text = formUsername
         binding.detailDate.text = formDate
         binding.detailQnA.text = formTitle
-        viewModel.getCommentsForForum(formId, token)
+        val pref = UserPreference.getInstance(this.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getTokenKey().observe(this){
+            viewModel.getCommentsForForum(formId, it)
+        }
+
 
 
         binding.imageButton.setOnClickListener {
-            val commentText = binding.commentText.text.toString()
-            if (commentText.isNotBlank()) {
-                viewModel.postComment(token, formId, commentText)
-                binding.commentText.text.clear()
-                viewModel.getCommentsForForum(formId, token)
-            } else {
-                binding.commentText.error = "Please enter a comment"
+
+
+            datastoreViewModel.getTokenKey().observe(this){
+                val commentText = binding.commentText.text.toString()
+                if (commentText.isNotBlank()) {
+                    viewModel.postComment(it, formId, commentText)
+                    binding.commentText.text.clear()
+                    viewModel.getCommentsForForum(formId, it)
+                } else {
+                    binding.commentText.error = "Please enter a comment"
+                }
             }
         }
 

@@ -17,9 +17,8 @@ class FormViewModel : ViewModel() {
     val formList: LiveData<List<DataForumItem>> get() = _formList
 
 
-    fun getFormList() {
-        val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYzMjg1MTktNTU5My00YWE4LThhNjgtZTQwOGE2ZGY3NjRjIn0sImlhdCI6MTcxODIwMjUwNX0.LgM5PsW3Y1QUtKxDMSi9dagxpgNy-bVeNidGlzk2uqc"
-        val client = ApiConfig.getApiService().getForumList("Bearer $auth")
+    fun getFormList(token: String) {
+        val client = ApiConfig.getApiService().getForumList("Bearer $token")
         client.enqueue(object : Callback<ForumResponse> {
             override fun onResponse(
                 call: Call<ForumResponse>,

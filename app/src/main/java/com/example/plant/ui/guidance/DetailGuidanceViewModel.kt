@@ -19,8 +19,7 @@ class DetailGuidanceViewModel: ViewModel() {
     val contentList :MutableLiveData<List<ContentItem?>?> get() = _contentList
 
 
-    fun getDetailGuide(id:String){
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
+    fun getDetailGuide(token:String, id:String){
         val client = ApiConfig.getApiService().getGuidanceDetail("Bearer $token", id)
         client.enqueue(object:Callback<DetailGuidanceResponse>{
             override fun onResponse(

@@ -1,20 +1,22 @@
 package com.example.plant.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.plant.ListHistory
-import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentHomeBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.history.HistoryAdapter
-import com.example.plant.ui.history.HistoryFragment
 import com.example.plant.ui.login.LoginActivity
 import com.example.plant.ui.network.response.DataItem
 
@@ -49,16 +51,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        homeViewModel.getHistoryList()
 
-        homeViewModel.historyList.observe(viewLifecycleOwner) {
-            if (it != null) {
-                showRecyclerList(it)
-            }
-        }
+
+
 
         val root : View = binding.root
 
@@ -67,8 +65,26 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+        datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
+            homeViewModel.getHistoryList(it)
+        }
+
+
+        homeViewModel.historyList.observe(viewLifecycleOwner) {
+            if (it != null) {
+                showRecyclerList(it)
+            }
+        }
 
         binding.btnLogout.setOnClickListener {
+            datastoreViewModel.setTokenKey("")
+            datastoreViewModel.setValid(false)
             val intentLogin = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intentLogin)
         }
@@ -108,5 +124,6 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
     }
 }

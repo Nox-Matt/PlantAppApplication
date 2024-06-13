@@ -9,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.plant.databinding.ActivityMainBinding
 import com.example.plant.pref.DataStoreViewModel
 import com.example.plant.pref.UserPreference
 import com.example.plant.pref.dataStore
-import com.example.plant.ui.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
 

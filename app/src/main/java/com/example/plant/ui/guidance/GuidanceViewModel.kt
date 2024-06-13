@@ -25,7 +25,7 @@ class GuidanceViewModel: ViewModel() {
         }
     }
 
-    fun getGuidanceList(){
+    fun getGuidanceList(token:String){
         val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
         val client = ApiConfig.getApiService().getGuidanceList("Bearer $token")
         client.enqueue(object: Callback<GuidanceResponse>{
