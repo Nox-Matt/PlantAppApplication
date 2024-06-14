@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        val loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        val loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         val pref = UserPreference.getInstance(application.dataStore)
         val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(DataStoreViewModel::class.java)
 
