@@ -8,8 +8,8 @@
         motion:constraintSetStart="@id/start"
         motion:duration="1000"
         motion:autoTransition="animateToEnd">
-       <KeyFrameSet>
-       </KeyFrameSet>
+        <KeyFrameSet>
+        </KeyFrameSet>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
