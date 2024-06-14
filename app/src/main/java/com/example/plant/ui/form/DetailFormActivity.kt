@@ -18,6 +18,7 @@ class DetailFormActivity : AppCompatActivity() {
 
         val formTitle = intent.getStringExtra("form_title") ?: ""
         val formUsername = intent.getStringExtra("form_username") ?: ""
+        val formQuestion = intent.getStringExtra("form_question") ?: ""
         val formDate = intent.getStringExtra("form_date") ?: ""
         val formId = intent.getStringExtra("form_id") ?: ""
         val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYzMjg1MTktNTU5My00YWE4LThhNjgtZTQwOGE2ZGY3NjRjIn0sImlhdCI6MTcxODIwMjUwNX0.LgM5PsW3Y1QUtKxDMSi9dagxpgNy-bVeNidGlzk2uqc"
@@ -25,6 +26,7 @@ class DetailFormActivity : AppCompatActivity() {
         binding.detailUsername.text = formUsername
         binding.detailDate.text = formDate
         binding.detailQnA.text = formTitle
+        binding.qnaQuestion.text = formQuestion
         viewModel.getCommentsForForum(formId, token)
 
 
