@@ -62,7 +62,9 @@ class GuidanceFragment : Fragment() {
             guidanceViewModel.getGuidanceList(it)
         }
 
-
+        guidanceViewModel.isLoading.observe(viewLifecycleOwner){
+            showLoading(it)
+        }
 
         guidanceViewModel.guidanceList.observe(viewLifecycleOwner){
             showRecyclerList(it)
@@ -73,16 +75,12 @@ class GuidanceFragment : Fragment() {
         return root
     }
 
-    private fun setListGuidance(): ArrayList<ListGuidance>{
-        val dataTitle = resources.getStringArray(R.array.data_title_guidance)
-        val dataTime = resources.getStringArray(R.array.date_history)
-        val dataPhoto = resources.obtainTypedArray(R.array.data_guidance_photo)
-        val listGuidance = ArrayList<ListGuidance>()
-        for(i in dataTitle.indices){
-            val guidance = ListGuidance(dataTitle[i], dataTime[i], dataPhoto.getResourceId(i,-1))
-            listGuidance.add(guidance)
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
-        return listGuidance
     }
 
     private fun showRecyclerList(list: List<DataGuide?>?){

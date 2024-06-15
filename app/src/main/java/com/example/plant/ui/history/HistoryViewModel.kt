@@ -23,9 +23,13 @@ class HistoryViewModel:ViewModel() {
     private val _historyList = MutableLiveData<List<DataItem>?>()
     val historyList: MutableLiveData<List<DataItem>?> get() = _historyList
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : MutableLiveData<Boolean> = _isLoading
+
 
 
     fun getHistoryList(token: String){
+        _isLoading.value = true
         val client = ApiConfig.getApiService().getHistoryList("Bearer $token")
         client.enqueue(object : Callback<HistoriesResponse> {
             override fun onResponse(
@@ -33,18 +37,21 @@ class HistoryViewModel:ViewModel() {
                 response: Response<HistoriesResponse>
             ) {
                 if(response.isSuccessful){
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if(responseBody != null){
                         Log.d(TAG, "id: ${responseBody.data?.get(0)?.id}")
                         _historyList.value = responseBody.data as List<DataItem>?
                     }
                 }else{
+                    _isLoading.value = false
                     Log.d(TAG, "on fail${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<HistoriesResponse>, t: Throwable) {
                 TODO("Not yet implemented")
+                _isLoading.value = false
                 Log.d(TAG, "onFailure ${t.message}")
             }
 

@@ -15,10 +15,12 @@ class DetailViewModel: ViewModel(){
     private val _detaillist = MutableLiveData<DataDetail?>()
     val detaillist: MutableLiveData<DataDetail?> get() =_detaillist
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : MutableLiveData<Boolean> = _isLoading
 
-    fun getDetail(id: String){
-        val token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
+
+    fun getDetail(token:String, id: String){
+        _isLoading.value = true
         val client = ApiConfig.getApiService().getDetail("Bearer $token", id)
         client.enqueue(object:Callback<HistoryDetailResponse>{
             override fun onResponse(
@@ -26,16 +28,19 @@ class DetailViewModel: ViewModel(){
                 response: Response<HistoryDetailResponse>
             ) {
                 if(response.isSuccessful){
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if(responseBody != null){
                         _detaillist.value = responseBody.data
                     }
                 }else{
+                    _isLoading.value = false
                     Log.d(TAG, "${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<HistoryDetailResponse>, t: Throwable) {
+                _isLoading.value = false
                 Log.d(TAG, "${t.message}")
             }
 

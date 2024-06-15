@@ -82,6 +82,13 @@ class HomeFragment : Fragment() {
             }
         }
 
+        homeViewModel.isLoading.observe(viewLifecycleOwner){
+            val item = binding.recyclerView.adapter?.itemCount
+            if(item == null){
+                showLoading(it)
+            }
+        }
+
         binding.btnLogout.setOnClickListener {
             datastoreViewModel.setTokenKey("")
             datastoreViewModel.setValid(false)
@@ -99,6 +106,14 @@ class HomeFragment : Fragment() {
         val listHistoryAdapter = HistoryAdapter()
         listHistoryAdapter.submitList(list)
         binding.recyclerView.adapter =listHistoryAdapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun onDestroy() {

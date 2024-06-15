@@ -2,6 +2,7 @@ package com.example.plant.ui.guidance
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -71,13 +72,21 @@ class DetailGuidanceActivity : AppCompatActivity() {
 
         }
 
-
-
-
-
+        detailguidanceViewModel.isLoading.observe(this){
+            showLoading(it)
+        }
 
         binding.imgBack.setOnClickListener{
             onBackPressed()
+        }
+    }
+
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

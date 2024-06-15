@@ -19,14 +19,14 @@ class GuidanceViewModel: ViewModel() {
     private val _guidanceList = MutableLiveData<List<DataGuide?>?>()
     val guidanceList: LiveData<List<DataGuide?>?> get() = _guidanceList
 
-    fun setGuidance(listGuidance: List<DataGuide>) {
-        viewModelScope.launch {
-            _guidanceList.value = listGuidance
-        }
-    }
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : MutableLiveData<Boolean> = _isLoading
+
+
+
 
     fun getGuidanceList(token:String){
-        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
+        _isLoading.value = true
         val client = ApiConfig.getApiService().getGuidanceList("Bearer $token")
         client.enqueue(object: Callback<GuidanceResponse>{
             override fun onResponse(
@@ -34,15 +34,18 @@ class GuidanceViewModel: ViewModel() {
                 response: Response<GuidanceResponse>
             ) {
                 if(response.isSuccessful){
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if (responseBody != null){
                         _guidanceList.value = responseBody.data
                     }
-
+                }else{
+                    _isLoading.value = false
                 }
             }
 
             override fun onFailure(call: Call<GuidanceResponse>, t: Throwable) {
+                _isLoading.value = false
                 Log.d(TAG, "${t.message}")
             }
 

@@ -72,8 +72,20 @@ class FormFragment : Fragment() {
             formViewModel.getFormList(it)
         }
 
+        formViewModel.isLoading.observe(viewLifecycleOwner){
+            showLoading(it)
+        }
+
 
         return root
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

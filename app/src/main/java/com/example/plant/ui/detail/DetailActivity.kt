@@ -2,6 +2,7 @@ package com.example.plant.ui.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.plant.R
+import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityDetailBinding
+import com.example.plant.pref.DataStoreViewModel
+import com.example.plant.pref.UserPreference
+import com.example.plant.pref.dataStore
 import com.example.plant.ui.SectionPagerAdapter
 import com.example.plant.ui.network.ApiConfig
 import com.example.plant.ui.network.response.HistoryDetailResponse
@@ -39,10 +44,22 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
+        val pref = UserPreference.getInstance(this.dataStore)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            DataStoreViewModel::class.java)
+
+
 
         val detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         val id = intent.getStringExtra(ID)
-        detailViewModel.getDetail("$id")
+        datastoreViewModel.getTokenKey().observe(this){
+            detailViewModel.getDetail("$it","$id")
+        }
+
+        detailViewModel.isLoading.observe(this ){
+            showLoading(it)
+        }
+
         detailViewModel.detaillist.observe(this){
             if (it != null) {
                 Glide.with(this)
@@ -69,6 +86,14 @@ class DetailActivity : AppCompatActivity() {
 
         binding.imgBack.setOnClickListener{
             onBackPressed()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.plant.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -78,8 +79,8 @@ class RegisterActivity : AppCompatActivity() {
     private fun register(username: String, password: String) {
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Make sure all of your credential is inputted correctly", Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "login: username or password is empty")
         } else{
+            showLoading(true)
             val client = ApiConfig.getApiService().Register(username, password)
             client.enqueue(object : Callback<RegisterResponse> {
                 override fun onResponse(
@@ -87,15 +88,15 @@ class RegisterActivity : AppCompatActivity() {
                     response: Response<RegisterResponse>
                 ) {
                     if (response.isSuccessful) {
+                        showLoading(false)
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            Log.d(TAG, "${responseBody.message}")
-                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            startActivity(intent)
+                            showDialogSuccess("${responseBody.message}")
                         } else {
                             Log.d(TAG, "onResponseNull ${response.message()}")
                         }
                     } else {
+                        showLoading(false)
                         val errorBody = (response?.errorBody() as ResponseBody).string()
                         val error1 = errorBody.split("{")
                         val error2 = error1[1].split("}")
@@ -109,6 +110,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                    showLoading(false)
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
 
@@ -124,6 +126,32 @@ class RegisterActivity : AppCompatActivity() {
             }
             .create()
         dialog.show()
+    }
+
+    private fun showDialogSuccess(message : String){
+        val alertdialogBuilder = AlertDialog.Builder(this@RegisterActivity)
+        with(alertdialogBuilder){
+            setTitle("Success")
+
+            setMessage("$message, apakah anda ingin ke halaman login?")
+            setCancelable(false)
+            setPositiveButton("yes"){_, _->
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            setNegativeButton("no"){dialog, _->dialog.cancel()}
+        }
+        val alertDialog = alertdialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     companion object{

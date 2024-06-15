@@ -2,6 +2,7 @@ package com.example.plant.ui.form
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -45,27 +46,39 @@ class AddFormActivity : AppCompatActivity() {
                 val question = binding.editQuestion.text.toString()
 
                 val apiService = ApiConfig.getApiService()
-                val call = apiService.addForum(it,title, question)
 
+                showLoading(true)
+                val call = apiService.addForum(it,title, question)
                 call.enqueue(object : Callback<AddForumResponse> {
                     override fun onResponse(
                         call: Call<AddForumResponse>,
                         response: Response<AddForumResponse>
                     ) {
                         if (response.isSuccessful) {
+                            showLoading(false)
                             val responseBody = response.body()
                             Toast.makeText(this@AddFormActivity, responseBody?.message, Toast.LENGTH_SHORT).show()
                             finish()
                         } else {
+                            showLoading(false)
                             Log.e("AddFormActivity", "Error creating forum: ${response.message()}")
                         }
                     }
 
                     override fun onFailure(call: Call<AddForumResponse>, t: Throwable) {
+                        showLoading(false)
                         Log.e("AddFormActivity", "Network failure: ${t.message}")
                     }
                 })
             }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

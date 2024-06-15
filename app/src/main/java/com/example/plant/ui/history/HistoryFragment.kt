@@ -74,6 +74,16 @@ HistoryFragment : Fragment() {
         }
 
 
+
+
+        historyViewModel.isLoading.observe(viewLifecycleOwner){
+            val item = binding.rvHistory.adapter?.itemCount
+            if(item == null){
+                showLoading(it)
+            }
+        }
+
+
         val root : View = binding.root
 
 
@@ -81,29 +91,20 @@ HistoryFragment : Fragment() {
         return root
     }
 
-    private fun setListHistories() : ArrayList<ListHistory>{
-        val dataName = resources.getStringArray(R.array.name_disease)
-        val dataDesc = resources.getStringArray(R.array.desc_disease)
-        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
-        val dataPercentage = resources.getStringArray(R.array.percentage)
-        val dataTime = resources.getStringArray(R.array.date_history)
-        val listHistory = ArrayList<ListHistory>()
-        for(i in dataName.indices){
-            val history = ListHistory(dataName[i], dataDesc[i], dataPercentage[i], dataTime[i], dataPhoto.getResourceId(i,-1))
-            listHistory.add(history)
-        }
-        return listHistory
-    }
-
-
-
-
 
     private fun showRecyclerList(list:List<DataItem>){
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         val listHistoryAdapter = HistoryAdapter()
         listHistoryAdapter.submitList(list)
         binding.rvHistory.adapter =listHistoryAdapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     companion object {

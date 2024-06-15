@@ -144,6 +144,7 @@ class CameraFragment : Fragment() {
                 requestImageFile
             )
 
+            showLoading(true)
             val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
             val client = ApiConfig.getApiService().detectImage("Bearer $auth", multipartBody)
             client.enqueue(object : Callback<DetectResponse> {
@@ -152,6 +153,7 @@ class CameraFragment : Fragment() {
                     response: Response<DetectResponse>
                 ) {
                     if(response.isSuccessful){
+                        showLoading(false)
                         val responseBody =response.body()
                         if(responseBody != null){
                             Log.d(TAG, "${responseBody.data?.id}")
@@ -165,11 +167,13 @@ class CameraFragment : Fragment() {
                             startActivity(intentDetail)
                         }
                     }else{
+                        showLoading(false)
                         Log.d(TAG, "${response.message()}")
                     }
                 }
 
                 override fun onFailure(call: Call<DetectResponse>, t: Throwable) {
+                    showLoading(false)
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
 
@@ -191,6 +195,15 @@ class CameraFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
 
 
 }

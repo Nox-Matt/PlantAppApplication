@@ -1,6 +1,7 @@
 package com.example.plant.ui.form
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -37,11 +38,11 @@ class DetailFormActivity : AppCompatActivity() {
             viewModel.getCommentsForForum(formId, it)
         }
 
-
+        viewModel.isLoading.observe(this){
+            showLoading(it)
+        }
 
         binding.imageButton.setOnClickListener {
-
-
             datastoreViewModel.getTokenKey().observe(this){
                 val commentText = binding.commentText.text.toString()
                 if (commentText.isNotBlank()) {
@@ -67,6 +68,14 @@ class DetailFormActivity : AppCompatActivity() {
         val back = binding.imgBack
         back.setOnClickListener {
             onBackPressed()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

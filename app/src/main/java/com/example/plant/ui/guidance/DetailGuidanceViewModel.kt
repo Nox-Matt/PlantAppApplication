@@ -18,8 +18,12 @@ class DetailGuidanceViewModel: ViewModel() {
     private val _contentList = MutableLiveData<List<ContentItem?>?>()
     val contentList :MutableLiveData<List<ContentItem?>?> get() = _contentList
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : MutableLiveData<Boolean> = _isLoading
+
 
     fun getDetailGuide(token:String, id:String){
+        _isLoading.value = true
         val client = ApiConfig.getApiService().getGuidanceDetail("Bearer $token", id)
         client.enqueue(object:Callback<DetailGuidanceResponse>{
             override fun onResponse(
@@ -27,17 +31,20 @@ class DetailGuidanceViewModel: ViewModel() {
                 response: Response<DetailGuidanceResponse>
             ) {
                 if(response.isSuccessful){
+                    _isLoading.value = false
                     val responseBody = response.body()
                     if(responseBody!= null){
                         _dataList.value = responseBody.data
                         _contentList.value  = responseBody.data?.content
                     }
                 }else{
+                    _isLoading.value = false
                     Log.d(TAG, "${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<DetailGuidanceResponse>, t: Throwable) {
+                _isLoading.value = false
                 Log.d(TAG, "${t.message}")
             }
 

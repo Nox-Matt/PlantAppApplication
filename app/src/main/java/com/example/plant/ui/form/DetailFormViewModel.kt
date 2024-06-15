@@ -23,6 +23,10 @@ class DetailFormViewModel : ViewModel() {
 
     private val _postCommentResponse = MutableLiveData<CommentResponse>()
 
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : MutableLiveData<Boolean> = _isLoading
+
     fun getCommentsForForum(forumId: String, token: String) {
         ApiConfig.getApiService().getForumDetail("Bearer $token", forumId).enqueue(object : Callback<DetailForumResponse> {
             override fun onResponse(
@@ -44,17 +48,21 @@ class DetailFormViewModel : ViewModel() {
     }
     fun postComment(token: String, formId: String, commentText: String) {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 val answerRequest = ApiService.Answer(commentText)
                 val response = ApiConfig.getApiService().postComment("Bearer $token", formId, answerRequest)
 
                 if (response.isSuccessful) {
+                    _isLoading.value = false
                     getCommentsForForum(formId, token)
                 } else {
+                    _isLoading.value = false
                     Log.e("DetailFormViewModel", "Error posting comment: ${response.message()}")
                 }
 
             } catch (e: Exception) {
+                _isLoading.value = false
                 Log.e("DetailFormViewModel", "Error posting comment: ${e.message}")
             }
         }

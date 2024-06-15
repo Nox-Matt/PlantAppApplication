@@ -42,12 +42,11 @@ class WelcomeActivity : AppCompatActivity() {
             DataStoreViewModel::class.java)
 
         datastoreViewModel.getValid().observe(this){
-            if(it == false){
+            if(it == true){
                 val intenMain = Intent(this, MainActivity::class.java)
                 startActivity(intenMain)
             }
         }
-
         playAnimation()
     }
 
