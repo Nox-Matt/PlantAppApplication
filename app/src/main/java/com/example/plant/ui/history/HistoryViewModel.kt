@@ -50,7 +50,6 @@ class HistoryViewModel:ViewModel() {
             }
 
             override fun onFailure(call: Call<HistoriesResponse>, t: Throwable) {
-                TODO("Not yet implemented")
                 _isLoading.value = false
                 Log.d(TAG, "onFailure ${t.message}")
             }

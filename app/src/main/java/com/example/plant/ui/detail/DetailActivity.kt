@@ -38,6 +38,8 @@ class DetailActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showLoading(true)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -56,9 +58,6 @@ class DetailActivity : AppCompatActivity() {
             detailViewModel.getDetail("$it","$id")
         }
 
-        detailViewModel.isLoading.observe(this ){
-            showLoading(it)
-        }
 
         detailViewModel.detaillist.observe(this){
             if (it != null) {
@@ -70,6 +69,7 @@ class DetailActivity : AppCompatActivity() {
                 val percentageS = percentage.split(".")
                 val percentageA = percentageS.get(1).substring(0, 2)
                 binding.txtPercentage.text = "(${percentageS.get(0)}.$percentageA%)"
+                showLoading(false)
 
                 val sectionsPagerAdapter = SectionPagerAdapter(this@DetailActivity, "${it.description}", "${it.causes}", "${it.treatment}")
                 val viewPager: ViewPager2 = findViewById(R.id.view_pager)

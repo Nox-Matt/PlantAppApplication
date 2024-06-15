@@ -1,6 +1,7 @@
 package com.example.plant.ui.form
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ class DetailFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showLoading(true)
 
         val formTitle = intent.getStringExtra("form_title") ?: ""
         val formUsername = intent.getStringExtra("form_username") ?: ""
@@ -47,6 +49,7 @@ class DetailFormActivity : AppCompatActivity() {
 
         viewModel.commentList.observe(this) { discussion ->
             adapter.submitList(discussion)
+            showLoading(false)
         }
 
         val back = binding.imgBack
@@ -54,4 +57,12 @@ class DetailFormActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
 }

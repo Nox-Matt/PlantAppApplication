@@ -71,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
                 if(it == false){
                     loginViewModel.token.observe(this){token->
                         if (token != null) {
+                            datastoreViewModel.setUserName(binding.edtTextUsername.text.toString())
                             datastoreViewModel.setTokenKey(token)
                             datastoreViewModel.setValid(true)
                             val intentMain = Intent(this@LoginActivity, MainActivity::class.java)

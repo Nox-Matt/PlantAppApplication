@@ -35,6 +35,7 @@ class FormFragment : Fragment() {
         val formViewModel = ViewModelProvider(this)[FormViewModel::class.java]
         _binding = FragmentFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        showLoading(true)
 
         // Adapter Initialization
         formAdapter = FormAdapter { form ->
@@ -62,6 +63,7 @@ class FormFragment : Fragment() {
 
         formViewModel.formList.observe(viewLifecycleOwner) { forumList ->
             formAdapter.submitList(forumList)
+            showLoading(false)
         }
 
         // Fetch the forum list
@@ -73,10 +75,9 @@ class FormFragment : Fragment() {
             formViewModel.getFormList(it)
         }
 
-        formViewModel.isLoading.observe(viewLifecycleOwner){
-            showLoading(it)
-        }
-
+//        formViewModel.isLoading.observe(viewLifecycleOwner){
+//            showLoading(it)
+//        }
 
         return root
     }

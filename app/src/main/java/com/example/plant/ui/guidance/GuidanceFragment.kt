@@ -53,17 +53,14 @@ class GuidanceFragment : Fragment() {
         // Inflate the layout for this fragment
         val guidanceViewModel = ViewModelProvider(this).get(GuidanceViewModel::class.java)
         _binding = FragmentGuidanceBinding.inflate(inflater, container, false)
-
+        showLoading(true)
         val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
         val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
             DataStoreViewModel::class.java)
 
         datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
             guidanceViewModel.getGuidanceList(it)
-        }
-
-        guidanceViewModel.isLoading.observe(viewLifecycleOwner){
-            showLoading(it)
+            showLoading(false)
         }
 
         guidanceViewModel.guidanceList.observe(viewLifecycleOwner){

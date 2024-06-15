@@ -15,6 +15,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     private val TOKEN_KEY = stringPreferencesKey("token_key")
     private val IS_VALID = booleanPreferencesKey("is_valid")
+    private val USER_NAME = stringPreferencesKey("user_name")
 
     fun getTokenKey(): Flow<String> {
         return dataStore.data.map{preferences->
@@ -37,6 +38,16 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     suspend fun setValid(valid:Boolean){
         dataStore.edit {preferences->
             preferences[IS_VALID] = valid
+        }
+    }
+    fun getUserName(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USER_NAME] ?: "user_name"
+        }
+    }
+    suspend fun setUserName(userName: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_NAME] = userName
         }
     }
 

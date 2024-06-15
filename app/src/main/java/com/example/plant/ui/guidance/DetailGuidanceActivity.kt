@@ -27,6 +27,8 @@ class DetailGuidanceActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityDetailGuidanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showLoading(true)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -68,12 +70,9 @@ class DetailGuidanceActivity : AppCompatActivity() {
                     tab.text = resources.getString(TAB_TITLES[position])
                 }.attach()
                 supportActionBar?.elevation = 0f
+                showLoading(false)
             }
 
-        }
-
-        detailguidanceViewModel.isLoading.observe(this){
-            showLoading(it)
         }
 
         binding.imgBack.setOnClickListener{

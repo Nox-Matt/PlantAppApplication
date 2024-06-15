@@ -26,4 +26,14 @@ class DataStoreViewModel(private val pref: UserPreference): ViewModel() {
             pref.setValid(valid)
         }
     }
+
+    fun getUserName(): LiveData<String> {
+        return pref.getUserName().asLiveData()
+    }
+
+    fun setUserName(userName: String) {
+        viewModelScope.launch {
+            pref.setUserName(userName)
+        }
+    }
 }

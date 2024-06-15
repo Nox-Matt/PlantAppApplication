@@ -22,6 +22,8 @@ class HomeViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading : MutableLiveData<Boolean> = _isLoading
 
+    private val _userName = MutableLiveData<String>()
+    val userName: LiveData<String> = _userName
 
 
     fun getHistoryList(token: String){
@@ -45,7 +47,6 @@ class HomeViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<HistoriesResponse>, t: Throwable) {
-                TODO("Not yet implemented")
                 _isLoading.value = false
                 Log.d(HistoryViewModel.TAG, "onFailure ${t.message}")
             }

@@ -71,6 +71,9 @@ class HomeFragment : Fragment() {
         val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
             DataStoreViewModel::class.java)
 
+        datastoreViewModel.getUserName().observe(viewLifecycleOwner) { username ->
+            binding.greetingText1.text = "$username !"
+        }
         datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
             homeViewModel.getHistoryList(it)
         }
