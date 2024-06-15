@@ -92,6 +92,9 @@ class HomeFragment : Fragment() {
         binding.btnLogout.setOnClickListener {
             datastoreViewModel.setTokenKey("")
             datastoreViewModel.setValid(false)
+            datastoreViewModel.getValid().observe(viewLifecycleOwner){
+                Log.d(TAG, "$it")
+            }
             val intentLogin = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intentLogin)
         }
@@ -139,6 +142,8 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        const val TAG = "HomeFragment"
 
     }
 }

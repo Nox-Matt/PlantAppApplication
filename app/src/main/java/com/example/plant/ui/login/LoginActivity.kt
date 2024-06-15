@@ -1,8 +1,14 @@
 package com.example.plant.ui.login
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -89,20 +95,36 @@ class LoginActivity : AppCompatActivity() {
         }
 
         datastoreViewModel.getValid().observe(this){
-            if(it == false){
+            if(it){
                 val intenMain = Intent(this, MainActivity::class.java)
                 startActivity(intenMain)
             }
         }
     }
     private fun showErrorDialog(){
-        val dialog = AlertDialog.Builder(this)
-            .setTitle("Login Failed")
-            .setMessage("An error occurred during login, check your username and password, then Please try again.")
-            .setPositiveButton("Okay") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .create()
+//        val dialog = AlertDialog.Builder(this)
+//            .setTitle("Login Failed")
+//            .setMessage("An error occurred during login, check your username and password, then Please try again.")
+//            .setPositiveButton("Okay") { dialog, _ ->
+//                dialog.dismiss()
+//            }
+//            .create()
+//        dialog.show()
+
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialogerror)
+        dialog.setCancelable(false )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val btnOK : Button =dialog.findViewById(R.id.btn_ok_err)
+        val txterr : TextView = dialog.findViewById(R.id.txt_warning)
+
+        txterr.text = "An error occurred during login, check your username and password, then Please try again."
+
+        btnOK.setOnClickListener {
+            dialog.dismiss()
+        }
+
         dialog.show()
     }
 

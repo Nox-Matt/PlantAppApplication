@@ -42,7 +42,7 @@ class WelcomeActivity : AppCompatActivity() {
             DataStoreViewModel::class.java)
 
         datastoreViewModel.getValid().observe(this){
-            if(it == true){
+            if(it){
                 val intenMain = Intent(this, MainActivity::class.java)
                 startActivity(intenMain)
             }

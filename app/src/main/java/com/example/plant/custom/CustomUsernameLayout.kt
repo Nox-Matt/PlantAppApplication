@@ -20,7 +20,7 @@ init {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if(s.toString().length > 14){
                 error = "Username has to be less than 14 characters long"
-            } else if(s.toString().length < 8){
+            } else if(s.toString().length < 4){
                 error = "Username have to be more than 8 characters long"
             }
         }
