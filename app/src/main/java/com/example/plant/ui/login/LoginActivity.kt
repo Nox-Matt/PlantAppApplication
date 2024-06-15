@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -113,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
 
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialogerror)
+        dialog.setContentView(R.layout.dialogcustom)
         dialog.setCancelable(false )
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val btnOK : Button =dialog.findViewById(R.id.btn_ok_err)
