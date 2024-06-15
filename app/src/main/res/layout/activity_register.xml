@@ -51,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/edt_username"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <EditText
+    <com.example.plant.custom.CustomUsernameLayout
         android:id="@+id/edt_username"
         android:imeOptions="actionNext"
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/edt_password"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <EditText
+    <com.example.plant.custom.CustomPasswordLayout
         android:id="@+id/edt_password"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -105,7 +105,7 @@
         app:layout_constraintBottom_toTopOf="@+id/edt_confirm_password"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <EditText
+    <com.example.plant.custom.CustomPasswordLayout
         android:id="@+id/edt_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="60dp"

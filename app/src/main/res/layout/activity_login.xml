@@ -41,7 +41,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/edtTextUsername"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:background="@drawable/custom_input"-->
+<!--        android:drawableStart="@drawable/custom_user_icon"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Enter Your Username"-->
+<!--        android:inputType="text"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/banner"-->
+<!--        app:layout_constraintStart_toStartOf="@id/banner"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textUsername" />-->
+
+    <com.example.plant.custom.CustomUsernameLayout
         android:id="@+id/edtTextUsername"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -54,9 +69,23 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="@id/banner"
         app:layout_constraintStart_toStartOf="@id/banner"
-        app:layout_constraintTop_toBottomOf="@+id/textUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/textUsername"/>
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/edtTextPass"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:background="@drawable/custom_input"-->
+<!--        android:drawableStart="@drawable/custom_lock_icon"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Enter Your Password"-->
+<!--        android:inputType="textPassword"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/banner"-->
+<!--        app:layout_constraintStart_toStartOf="@id/banner"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textPassword" />-->
+    <com.example.plant.custom.CustomPasswordLayout
         android:id="@+id/edtTextPass"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -69,7 +98,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/banner"
         app:layout_constraintStart_toStartOf="@id/banner"
-        app:layout_constraintTop_toBottomOf="@+id/textPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/textPassword"/>
+
 
     <Button
         android:id="@+id/loginButton"
