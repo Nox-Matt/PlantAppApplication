@@ -29,6 +29,7 @@ import com.example.plant.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var loginViewModel: LoginViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        val loginViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         val pref = UserPreference.getInstance(application.dataStore)
         val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(DataStoreViewModel::class.java)
 
@@ -61,40 +62,39 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.edtTextPass.text.toString()
             loginViewModel.login(username, password)
 
-            loginViewModel.isEmpty.observe(this){
-                if(it){
-                    Toast.makeText(this, "Make sure all of your credential is inputted correctly", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            loginViewModel.isError.observe(this){
-                if(it == false){
-                    loginViewModel.token.observe(this){token->
-                        if (token != null) {
-                            datastoreViewModel.setUserName(binding.edtTextUsername.text.toString())
-                            datastoreViewModel.setTokenKey(token)
-                            datastoreViewModel.setValid(true)
-                       }
-                    }
-                }else{
-                    showErrorDialog()
-                }
-            }
-
-            loginViewModel.isLoading.observe(this){
-                Log.d(TAG, "$it")
-                showLoading(it)
-            }
-
         }
+
+        loginViewModel.isEmpty.observe(this){
+            if(it){
+                Toast.makeText(this, "Make sure all of your credential is inputted correctly", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        loginViewModel.isError.observe(this){
+            if(it == false){
+                loginViewModel.token.observe(this){token->
+                    if (token != null) {
+                        datastoreViewModel.setUserName(binding.edtTextUsername.text.toString())
+                        datastoreViewModel.setTokenKey(token)
+                        datastoreViewModel.setValid(true)
+                    }
+                }
+            }else{
+                showErrorDialog()
+            }
+        }
+
+        loginViewModel.isLoading.observe(this){load->
+            Log.d(TAG, "state load: $load")
+            showLoading(load)
+        }
+
         binding.txtLogin2.setOnClickListener {
             val intentRegister = Intent(this, RegisterActivity::class.java)
             startActivity(intentRegister)
         }
 
-        loginViewModel.isLoading.observe(this){
-            Log.d(TAG, "$it")
-        }
+
 
         datastoreViewModel.getValid().observe(this){
             if(it){
