@@ -110,6 +110,7 @@ class CameraFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -118,6 +119,7 @@ class CameraFragment : Fragment() {
 
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
         binding.galleryButton.setOnClickListener {
             startGallery()
         }
@@ -134,6 +136,14 @@ class CameraFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            currentImageUri = it.getParcelable("imageUri")
+            showImage()
+        }
+    }
+
     private fun analyzeImage(token :String ) {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
@@ -146,8 +156,7 @@ class CameraFragment : Fragment() {
             )
 
             showLoading(true)
-            val auth = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNzNlNTUwZGYtOTE4ZS00ZGI3LTljNWItYjk2NGRjZjcwYmJiIn0sImlhdCI6MTcxODEyNjI1OH0.ebu6LZ7qdp8V3W6cUnCnGaODvmxf7iKGqCoedgswnCE"
-            val client = ApiConfig.getApiService().detectImage("Bearer $auth", multipartBody)
+            val client = ApiConfig.getApiService().detectImage("Bearer $token", multipartBody)
             client.enqueue(object : Callback<DetectResponse> {
                 override fun onResponse(
                     call: Call<DetectResponse>,
@@ -205,7 +214,4 @@ class CameraFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         }
     }
-
-
-
 }

@@ -26,7 +26,7 @@ class HomeViewModel: ViewModel() {
     val userName: LiveData<String> = _userName
 
 
-    fun getHistoryList(token: String){
+    fun getHistoryList(token: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getHistoryList("Bearer $token")
         client.enqueue(object : Callback<HistoriesResponse> {
@@ -34,13 +34,19 @@ class HomeViewModel: ViewModel() {
                 call: Call<HistoriesResponse>,
                 response: Response<HistoriesResponse>
             ) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     _isLoading.value = false
                     val responseBody = response.body()
-                    if(responseBody != null){
-                        _historyList.value = responseBody.data?.subList(0,2) as List<DataItem>?
+                    if (responseBody != null) {
+                        _historyList.value = responseBody.data?.let { dataList ->
+                            if (dataList.size >= 3) {
+                                dataList.subList(0, 2)
+                            } else {
+                                dataList
+                            }
+                        } as List<DataItem>?
                     }
-                }else{
+                } else {
                     _isLoading.value = false
                     Log.d(HistoryViewModel.TAG, "on fail${response.message()}")
                 }

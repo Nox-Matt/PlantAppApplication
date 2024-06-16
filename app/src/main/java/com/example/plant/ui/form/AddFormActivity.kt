@@ -39,16 +39,17 @@ class AddFormActivity : AppCompatActivity() {
         binding.btnSubmitQuestion.setOnClickListener {
             val pref = UserPreference.getInstance(this.dataStore)
             val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-                DataStoreViewModel::class.java)
+                DataStoreViewModel::class.java
+            )
 
-            datastoreViewModel.getTokenKey().observe(this){
+            datastoreViewModel.getTokenKey().observe(this) { token -> // Access the token
                 val title = binding.editTitleQuestion.text.toString()
                 val question = binding.editQuestion.text.toString()
-
                 val apiService = ApiConfig.getApiService()
-
                 showLoading(true)
-                val call = apiService.addForum(it,title, question)
+                val authToken = "Bearer $token"
+
+                val call = apiService.addForum(authToken, title, question)
                 call.enqueue(object : Callback<AddForumResponse> {
                     override fun onResponse(
                         call: Call<AddForumResponse>,

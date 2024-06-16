@@ -2,26 +2,33 @@ package com.example.plant.ui.home
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plant.MainActivity
 import com.example.plant.R
 import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentHomeBinding
+import com.example.plant.getImageUri
 import com.example.plant.pref.DataStoreViewModel
 import com.example.plant.pref.UserPreference
 import com.example.plant.pref.dataStore
 import com.example.plant.ui.history.HistoryAdapter
 import com.example.plant.ui.login.LoginActivity
 import com.example.plant.ui.network.response.DataItem
+import kotlinx.coroutines.launch
+import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +48,8 @@ class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var capturedTempImageUri: Uri
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -53,8 +62,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
@@ -65,16 +72,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
-        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-            DataStoreViewModel::class.java)
+        val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref))[DataStoreViewModel::class.java]
 
         datastoreViewModel.getUserName().observe(viewLifecycleOwner) { username ->
             binding.greetingText1.text = "$username !"
         }
-        datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
+
+        datastoreViewModel.getTokenKey().observe(viewLifecycleOwner) {
             homeViewModel.getHistoryList(it)
         }
 
@@ -92,30 +99,36 @@ class HomeFragment : Fragment() {
             }
         }
 
-        homeViewModel.isLoading.observe(viewLifecycleOwner){
-            val item = binding.recyclerView.adapter?.itemCount
-            if(item == null){
-                showLoading(it)
-            }
+        homeViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
         }
 
         binding.btnLogout.setOnClickListener {
-            datastoreViewModel.setTokenKey("")
-            datastoreViewModel.setValid(false)
-            datastoreViewModel.getValid().observe(viewLifecycleOwner){
-                Log.d(TAG, "$it")
+            lifecycleScope.launch {
+                datastoreViewModel.setTokenKey("")
+                datastoreViewModel.setValid(false)
             }
             val intentLogin = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intentLogin)
         }
 
+        // Camera Activity
+        val launcherIntentCamera = registerForActivityResult(
+            ActivityResultContracts.TakePicture()
+        ) { isSuccess ->
+            if (isSuccess) {
+                val bundle = Bundle().apply { putParcelable("imageUri", capturedTempImageUri) }
+                findNavController().navigate(R.id.navigation_Camera, bundle)
+            }
+        }
+
         binding.buttonToAnalyzed.setOnClickListener {
-            findNavController().navigate(R.id.navigation_Camera)
-            val bottomNavigationView = (activity as? MainActivity)?.navView
-            bottomNavigationView?.selectedItemId = R.id.navigation_Camera
-            true
+            capturedTempImageUri = getImageUri(requireContext())
+            launcherIntentCamera.launch(capturedTempImageUri)
         }
     }
+
+
 
     private fun showRecyclerList(list:List<DataItem>){
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -157,6 +170,5 @@ class HomeFragment : Fragment() {
             }
 
         const val TAG = "HomeFragment"
-
     }
 }
