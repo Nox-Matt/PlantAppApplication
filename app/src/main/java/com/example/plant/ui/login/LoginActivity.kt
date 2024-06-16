@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
@@ -38,7 +39,6 @@ class LoginActivity : AppCompatActivity() {
             override fun handleOnBackPressed() {
                 val intentWelcome = Intent(this@LoginActivity, WelcomeActivity::class.java)
                 startActivity(intentWelcome)
-
             }
         })
 
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        val loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        val loginViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(LoginViewModel::class.java)
         val pref = UserPreference.getInstance(application.dataStore)
         val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(DataStoreViewModel::class.java)
 
@@ -74,9 +74,7 @@ class LoginActivity : AppCompatActivity() {
                             datastoreViewModel.setUserName(binding.edtTextUsername.text.toString())
                             datastoreViewModel.setTokenKey(token)
                             datastoreViewModel.setValid(true)
-                            val intentMain = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intentMain)
-                        }
+                       }
                     }
                 }else{
                     showErrorDialog()
@@ -84,14 +82,18 @@ class LoginActivity : AppCompatActivity() {
             }
 
             loginViewModel.isLoading.observe(this){
+                Log.d(TAG, "$it")
                 showLoading(it)
             }
-//            login(username, password)
-        }
 
+        }
         binding.txtLogin2.setOnClickListener {
             val intentRegister = Intent(this, RegisterActivity::class.java)
             startActivity(intentRegister)
+        }
+
+        loginViewModel.isLoading.observe(this){
+            Log.d(TAG, "$it")
         }
 
         datastoreViewModel.getValid().observe(this){
@@ -102,15 +104,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     private fun showErrorDialog(){
-//        val dialog = AlertDialog.Builder(this)
-//            .setTitle("Login Failed")
-//            .setMessage("An error occurred during login, check your username and password, then Please try again.")
-//            .setPositiveButton("Okay") { dialog, _ ->
-//                dialog.dismiss()
-//            }
-//            .create()
-//        dialog.show()
-
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialogcustom)
@@ -124,7 +117,6 @@ class LoginActivity : AppCompatActivity() {
         btnOK.setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
     }
 

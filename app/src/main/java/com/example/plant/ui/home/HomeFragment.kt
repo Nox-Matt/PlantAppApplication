@@ -58,9 +58,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
-
-
-
         val root : View = binding.root
 
         return root
@@ -79,6 +76,13 @@ class HomeFragment : Fragment() {
         }
         datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
             homeViewModel.getHistoryList(it)
+        }
+
+        binding.txtSeeAll.setOnClickListener {
+            findNavController().navigate(R.id.navigation_History)
+            val bottomNavigationView = (activity as? MainActivity)?.navView
+            bottomNavigationView?.selectedItemId = R.id.navigation_History
+            true
         }
 
 
@@ -111,11 +115,7 @@ class HomeFragment : Fragment() {
             bottomNavigationView?.selectedItemId = R.id.navigation_Camera
             true
         }
-
-
     }
-
-
 
     private fun showRecyclerList(list:List<DataItem>){
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

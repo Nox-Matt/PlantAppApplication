@@ -55,12 +55,12 @@ class RegisterActivity : AppCompatActivity() {
         val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
             DataStoreViewModel::class.java)
 
-        datastoreViewModel.getValid().observe(this){
-            if(it){
-                val intenMain = Intent(this, MainActivity::class.java)
-                startActivity(intenMain)
-            }
-        }
+//        datastoreViewModel.getValid().observe(this){
+//            if(it){
+//                val intenMain = Intent(this, MainActivity::class.java)
+//                startActivity(intenMain)
+//            }
+//        }
 
 
         val hyperlinkLogin: TextView = findViewById(R.id.hyperlinkLogin)

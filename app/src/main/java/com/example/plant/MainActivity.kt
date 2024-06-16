@@ -76,10 +76,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        binding.btnIntent.setOnClickListener {
-//            val intent = Intent(this, WelcomeActivity::class.java)
-//            startActivity(intent)
-//        }
 
         val pref = UserPreference.getInstance(application.dataStore)
         val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(

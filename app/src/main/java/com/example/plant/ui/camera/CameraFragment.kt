@@ -15,6 +15,8 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.plant.MainActivity
 import com.example.plant.R
 import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentCameraBinding
@@ -189,6 +191,7 @@ class CameraFragment : Fragment() {
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
         const val TAG = "CameraFragment"
+        const val EXTRA_URI = "extra uri"
     }
 
     private fun showToast(message: String) {

@@ -1,11 +1,8 @@
 package com.example.plant.ui.login
 
-import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.plant.MainActivity
 import com.example.plant.ui.network.ApiConfig
 import com.example.plant.ui.network.response.LoginResponse
 import com.example.plant.ui.register.RegisterActivity
@@ -41,7 +38,7 @@ class LoginViewModel : ViewModel(){
                     response: Response<LoginResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _isLoading.value = false
+//                        _isLoading.value = false
                         _isError.value = false
                         val responseBody = response.body()
                         if (responseBody != null) {
@@ -51,7 +48,7 @@ class LoginViewModel : ViewModel(){
                             Log.d(RegisterActivity.TAG, "onResponseNull ${response.message()}")
                         }
                     } else {
-                        _isLoading.value = false
+//                        _isLoading.value = false
                         val errorBody = (response?.errorBody() as ResponseBody).string()
                         val error1 = errorBody.split("{")
                         val error2 = error1[1].split("}")
@@ -65,7 +62,7 @@ class LoginViewModel : ViewModel(){
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    _isLoading.value = false
+//                    _isLoading.value = false
                     Log.d(RegisterActivity.TAG, "onFailure: ${t.message}")
                 }
 
