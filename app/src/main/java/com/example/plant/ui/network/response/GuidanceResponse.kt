@@ -14,7 +14,7 @@ data class GuidanceResponse(
 data class DataGuide(
 
 	@field:SerializedName("publishedAt")
-	val publishedAt: PublishedAt? = null,
+	val publishedAt: String? = null,
 
 	@field:SerializedName("imageUrl")
 	val imageUrl: String? = null,

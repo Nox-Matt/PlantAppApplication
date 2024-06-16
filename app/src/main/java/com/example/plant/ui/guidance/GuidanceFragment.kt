@@ -60,7 +60,10 @@ class GuidanceFragment : Fragment() {
 
         datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
             guidanceViewModel.getGuidanceList(it)
-            showLoading(false)
+        }
+
+        guidanceViewModel.isLoading.observe(viewLifecycleOwner){
+            showLoading(it)
         }
 
         guidanceViewModel.guidanceList.observe(viewLifecycleOwner){

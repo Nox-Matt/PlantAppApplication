@@ -53,7 +53,7 @@ data class ContentItem(
 data class DataDetailGuide(
 
 	@field:SerializedName("publishedAt")
-	val publishedAt: PublishedAtDetailGuide? = null,
+	val publishedAt: String? = null,
 
 	@field:SerializedName("imageUrl")
 	val imageUrl: String? = null,

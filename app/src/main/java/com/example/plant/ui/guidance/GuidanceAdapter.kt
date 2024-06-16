@@ -22,6 +22,7 @@ class GuidanceAdapter : ListAdapter<DataGuide, GuidanceAdapter.ListViewHolder>(D
             Glide.with(itemView.context)
                 .load("${guidance.imageUrl}")
                 .into(binding.imgGuide)
+            binding.txtTime.text = "${guidance.publishedAt}"
 
 
 
