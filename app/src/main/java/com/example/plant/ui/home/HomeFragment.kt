@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.plant.MainActivity
+import com.example.plant.R
 import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentHomeBinding
 import com.example.plant.pref.DataStoreViewModel
@@ -100,6 +103,13 @@ class HomeFragment : Fragment() {
             }
             val intentLogin = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intentLogin)
+        }
+
+        binding.buttonToAnalyzed.setOnClickListener {
+            findNavController().navigate(R.id.navigation_Camera)
+            val bottomNavigationView = (activity as? MainActivity)?.navView
+            bottomNavigationView?.selectedItemId = R.id.navigation_Camera
+            true
         }
 
 
