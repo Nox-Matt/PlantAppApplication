@@ -50,6 +50,8 @@ class DetailFormActivity : AppCompatActivity() {
         viewModel.commentList.observe(this) { discussion ->
             adapter.submitList(discussion)
             showLoading(false)
+            binding.emptyFormCondition.visibility = if (discussion.isEmpty()) View.VISIBLE else View.GONE
+            binding.recycleComment.visibility = if (discussion.isEmpty()) View.GONE else View.VISIBLE
         }
 
         val back = binding.imgBack

@@ -64,6 +64,8 @@ class FormFragment : Fragment() {
         formViewModel.formList.observe(viewLifecycleOwner) { forumList ->
             formAdapter.submitList(forumList)
             showLoading(false)
+            binding.emptyFormCondition.visibility = if (forumList.isEmpty()) View.VISIBLE else View.GONE
+            binding.questionRecycler.visibility = if (forumList.isEmpty()) View.GONE else View.VISIBLE
         }
 
         // Fetch the forum list

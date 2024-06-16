@@ -124,8 +124,7 @@ class CameraFragment : Fragment() {
         }
         binding.analyzeButton.setOnClickListener{
             val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
-            val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-                DataStoreViewModel::class.java)
+            val datastoreViewModel = ViewModelProvider(this, ViewModelFactory(pref))[DataStoreViewModel::class.java]
             datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){
                 analyzeImage(it)
             }
