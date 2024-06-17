@@ -63,4 +63,5 @@ dependencies {
 
     implementation(libs.androidx.exifinterface)
     implementation (libs.styleabletoast)
+    implementation (libs.androidx.core.splashscreen)
 }
