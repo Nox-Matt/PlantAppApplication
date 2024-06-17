@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,6 +58,7 @@ HistoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+        val deleteViewModel = ViewModelProvider(this).get(DeleteViewModel::class.java)
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
         val pref = UserPreference.getInstance(requireContext().applicationContext.dataStore)
@@ -73,9 +75,6 @@ HistoryFragment : Fragment() {
             }
         }
 
-
-
-
         historyViewModel.isLoading.observe(viewLifecycleOwner){
             val item = binding.rvHistory.adapter?.itemCount
             if(item == null){
@@ -83,7 +82,19 @@ HistoryFragment : Fragment() {
             }
         }
 
+        deleteViewModel.isClickId.observe(viewLifecycleOwner){
+            if(it){
 
+                datastoreViewModel.getTokenKey().observe(viewLifecycleOwner){token->
+                    deleteViewModel.idDelete.observe(viewLifecycleOwner){idDel->
+                        deleteViewModel.deleteHisotrybyId(token, idDel)
+                    }
+                }
+
+
+
+            }
+        }
         val root : View = binding.root
 
 
@@ -94,7 +105,7 @@ HistoryFragment : Fragment() {
 
     private fun showRecyclerList(list:List<DataItem>){
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
-        val listHistoryAdapter = HistoryAdapter()
+        val listHistoryAdapter = HistoryAdapter(this)
         listHistoryAdapter.submitList(list)
         binding.rvHistory.adapter =listHistoryAdapter
     }

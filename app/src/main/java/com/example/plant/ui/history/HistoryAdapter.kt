@@ -2,6 +2,7 @@ package com.example.plant.ui.history
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ListView
@@ -14,15 +15,17 @@ import com.example.plant.ListHistory
 import com.example.plant.databinding.ItemRowHistoryBinding
 import com.example.plant.ui.detail.DetailActivity
 import androidx.core.util.Pair
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.bumptech.glide.Glide
 import com.example.plant.ui.network.response.Data
 import com.example.plant.ui.network.response.DataItem
 
-class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class HistoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
 
     class ListViewHolder(val binding: ItemRowHistoryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(history : DataItem) {
+        fun bind(history : DataItem, viewModelStoreOwner: ViewModelStoreOwner) {
             Glide.with(itemView.context)
                 .load("${history.imageUrl}")
                 .into(binding.imgCardLeaf)
@@ -51,10 +54,13 @@ class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_
 
                     )
                 intentDetail.putExtra(DetailActivity.ID, "${history.id}")
-
-
                 itemView.context.startActivity(intentDetail, optionsCompat.toBundle())
+            }
 
+            binding.fabDelete.setOnClickListener {
+                val deleteViewModel  = ViewModelProvider(viewModelStoreOwner).get(DeleteViewModel::class.java)
+                deleteViewModel.setIsClickId(true)
+                deleteViewModel.setIdDelete("${history.id}")
             }
         }
     }
@@ -67,7 +73,7 @@ class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val history =getItem(position)
-        holder.bind(history)
+        holder.bind(history, viewModelStoreOwner)
     }
 
     companion object{
@@ -87,5 +93,6 @@ class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_
             }
 
         }
+        const val TAG = "HistoryAdapter"
     }
 }

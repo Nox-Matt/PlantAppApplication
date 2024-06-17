@@ -83,6 +83,7 @@ class HomeFragment : Fragment() {
 
         datastoreViewModel.getTokenKey().observe(viewLifecycleOwner) {
             homeViewModel.getHistoryList(it)
+            Log.d(TAG, "$it")
         }
 
         binding.txtSeeAll.setOnClickListener {
@@ -132,7 +133,7 @@ class HomeFragment : Fragment() {
 
     private fun showRecyclerList(list:List<DataItem>){
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val listHistoryAdapter = HistoryAdapter()
+        val listHistoryAdapter = HistoryAdapter(this)
         listHistoryAdapter.submitList(list)
         binding.recyclerView.adapter =listHistoryAdapter
     }

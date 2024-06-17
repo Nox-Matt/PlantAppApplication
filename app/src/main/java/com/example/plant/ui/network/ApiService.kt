@@ -2,6 +2,7 @@ package com.example.plant.ui.network
 
 import com.example.plant.ui.network.response.AddForumResponse
 import com.example.plant.ui.network.response.CommentResponse
+import com.example.plant.ui.network.response.DeleteResponse
 import com.example.plant.ui.network.response.DetailForumResponse
 import com.example.plant.ui.network.response.DetailGuidanceResponse
 import com.example.plant.ui.network.response.DetectResponse
@@ -15,6 +16,7 @@ import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -94,4 +96,11 @@ interface ApiService {
         @Header("Authorization") token : String,
         @Path("id") id:String
     ):Call<DetailGuidanceResponse>
+
+
+    @DELETE("detect/histories/{id}")
+    fun deletehistoryId(
+        @Header("Authorization") token : String,
+        @Path("id") id:String
+    ):Call<DeleteResponse>
 }
