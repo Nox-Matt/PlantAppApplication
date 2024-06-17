@@ -50,7 +50,7 @@ class CameraFragment : Fragment() {
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
-
+    private var resettingPreview = false
     private lateinit var cameraViewModel: CameraViewModel
 
     private val requestPermissionLauncher =
@@ -136,6 +136,14 @@ class CameraFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(resettingPreview){
+            resetPreview()
+            resettingPreview = false
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
@@ -169,12 +177,13 @@ class CameraFragment : Fragment() {
                             Log.d(TAG, "${responseBody.data?.id}")
                             Log.d(TAG, "${responseBody.message}")
                             Log.d(TAG, "${responseBody.data?.percentage}")
-
+                            resettingPreview = true
                             val intentDetail = Intent(context, DetailActivity::class.java)
 
                             intentDetail.putExtra(DetailActivity.ID, "${responseBody.data?.id}")
 
                             startActivity(intentDetail)
+//                            resetPreview()
                         }
                     }else{
                         showLoading(false)
@@ -190,6 +199,11 @@ class CameraFragment : Fragment() {
             })
 
         } ?: showToast(getString(R.string.empty_image_warning))
+    }
+
+    private fun resetPreview(){
+        binding.imagePreview.setImageResource(R.drawable.ic_placeholder)
+        currentImageUri = null
     }
 
     override fun onDestroyView() {
