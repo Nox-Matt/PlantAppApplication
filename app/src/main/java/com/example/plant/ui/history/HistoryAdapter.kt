@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -37,6 +38,8 @@ class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_
             binding.percentage.text = "${percentageF}"
             binding.time.text = timeF
 
+
+
             itemView.setOnClickListener {
                 val intentDetail =Intent(itemView.context, DetailActivity::class.java)
                 val optionsCompat: ActivityOptionsCompat=
@@ -51,6 +54,7 @@ class HistoryAdapter: ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_
 
 
                 itemView.context.startActivity(intentDetail, optionsCompat.toBundle())
+
             }
         }
     }

@@ -8,62 +8,72 @@
     android:background="@color/backgroundLoginRegister"
     tools:context=".ui.guidance.DetailGuidanceActivity">
 
-    <TextView
-        android:id="@+id/title_detail_guidance"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="20dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/title_detail_guide"
-        />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/img_detail_guide"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_guidance"
-        app:layout_constraintTop_toBottomOf="@id/title_detail_guidance"
-        />
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/title_detail_guidance"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="@string/title_detail_guide"
+                />
 
-    <ImageButton
-        android:id="@+id/img_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/backgroundLoginRegister"
-        app:layout_constraintTop_toTopOf="@+id/title_detail_guidance"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/ic_back"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/img_detail_guide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_guidance"
+                app:layout_constraintTop_toBottomOf="@id/title_detail_guidance"
+                />
+
+            <ImageButton
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/backgroundLoginRegister"
+                app:layout_constraintTop_toTopOf="@+id/title_detail_guidance"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_back"/>
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/img_detail_guide"
-        android:background="?attr/colorPrimary"
-        app:tabTextColor="@android:color/white"/>
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        app:layout_constraintTop_toBottomOf="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/img_detail_guide"
+                android:background="?attr/colorPrimary"
+                app:tabTextColor="@android:color/white"/>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                app:layout_constraintTop_toBottomOf="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
 
 
 
