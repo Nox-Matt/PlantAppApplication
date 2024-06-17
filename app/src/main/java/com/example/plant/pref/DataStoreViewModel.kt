@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class DataStoreViewModel(private val pref: UserPreference): ViewModel() {
+
     fun getTokenKey(): LiveData<String>{
         return pref.getTokenKey().asLiveData()
     }

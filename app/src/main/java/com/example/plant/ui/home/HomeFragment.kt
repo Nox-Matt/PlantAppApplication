@@ -120,6 +120,13 @@ class HomeFragment : Fragment() {
             val intentLogin = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intentLogin)
         }
+        datastoreViewModel.getValid().observe(viewLifecycleOwner) { isValid ->
+            if (!isValid) {
+                val intentLogin = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intentLogin)
+                activity?.finish()
+            }
+        }
 
         // Camera Activity
         val launcherIntentCamera = registerForActivityResult(

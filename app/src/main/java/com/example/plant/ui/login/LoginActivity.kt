@@ -94,8 +94,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intentRegister)
         }
 
-
-
         datastoreViewModel.getValid().observe(this){
             if(it){
                 val intenMain = Intent(this, MainActivity::class.java)
