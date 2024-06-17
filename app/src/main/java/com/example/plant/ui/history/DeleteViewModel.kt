@@ -21,11 +21,42 @@ class DeleteViewModel:ViewModel() {
     private var _idDelete = MutableLiveData<String>()
     var idDelete : MutableLiveData<String> = _idDelete
 
+    private var _dialogResult = MutableLiveData<Boolean>()
+    var dialoResult: MutableLiveData<Boolean> = _dialogResult
+
 
 
     fun deleteHisotrybyId(token:String, id:String){
         _isLoading.value = true
-        val client = ApiConfig.getApiService().deletehistoryId("Bearer $token", "id")
+        val client = ApiConfig.getApiService().deletehistoryId("Bearer $token", "$id")
+        client.enqueue(object:Callback<DeleteResponse>{
+            override fun onResponse(
+                call: Call<DeleteResponse>,
+                response: Response<DeleteResponse>
+            ) {
+                if(response.isSuccessful){
+                    _isLoading.value = false
+                    val responseBody = response.body()
+                    if(responseBody != null){
+                        _isSuccess.value = true
+                    }
+                }else{
+                    _isLoading.value = false
+                    _isSuccess.value = false
+                }
+            }
+
+            override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
+                _isLoading.value = false
+                _isSuccess.value = false
+            }
+
+        })
+    }
+
+    fun deleteAllHistory(auth:String){
+        _isLoading.value =true
+        val client  = ApiConfig.getApiService().deleteALlHistory("Bearer $auth")
         client.enqueue(object:Callback<DeleteResponse>{
             override fun onResponse(
                 call: Call<DeleteResponse>,
@@ -57,6 +88,10 @@ class DeleteViewModel:ViewModel() {
 
     fun setIdDelete(id:String){
         _idDelete.value = id
+    }
+
+    fun setDialogResult(dialog:Boolean){
+        _dialogResult.value = dialog
     }
 
 

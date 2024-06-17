@@ -133,7 +133,7 @@ class HomeFragment : Fragment() {
 
     private fun showRecyclerList(list:List<DataItem>){
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val listHistoryAdapter = HistoryAdapter(this)
+        val listHistoryAdapter = HistoryAdapter(this,false)
         listHistoryAdapter.submitList(list)
         binding.recyclerView.adapter =listHistoryAdapter
     }

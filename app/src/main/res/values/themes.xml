@@ -18,4 +18,15 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+    
+    <style name="exampleToast">
+        <item name="stTextColor">#fff</item>
+        <item name="stColorBackground">@color/green</item>
+        <item name="stIconStart">@drawable/ic_check</item>
+    </style>
+    <style name="errorToast">
+        <item name="stTextColor">#fff</item>
+        <item name="stColorBackground">@color/red</item>
+        <item name="stIconStart">@drawable/ic_delete</item>
+    </style>
 </resources>

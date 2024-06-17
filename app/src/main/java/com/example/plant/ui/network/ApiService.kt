@@ -103,4 +103,9 @@ interface ApiService {
         @Header("Authorization") token : String,
         @Path("id") id:String
     ):Call<DeleteResponse>
+
+    @DELETE("detect/histories")
+    fun deleteALlHistory(
+        @Header("Authorization") token: String
+    ):Call<DeleteResponse>
 }

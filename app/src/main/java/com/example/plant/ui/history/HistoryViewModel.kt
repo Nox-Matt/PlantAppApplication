@@ -40,7 +40,6 @@ class HistoryViewModel:ViewModel() {
                     _isLoading.value = false
                     val responseBody = response.body()
                     if(responseBody != null){
-                        Log.d(TAG, "id: ${responseBody.data?.get(0)?.id}")
                         _historyList.value = responseBody.data as List<DataItem>?
                     }
                 }else{

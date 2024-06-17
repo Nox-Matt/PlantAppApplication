@@ -62,4 +62,5 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     implementation(libs.androidx.exifinterface)
+    implementation (libs.styleabletoast)
 }

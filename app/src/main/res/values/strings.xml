@@ -12,6 +12,8 @@
     <string name="time">dd-mm-yyyy</string>
     <string name="qna_title">QNA TItle</string>
 
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_form_fragment">Hello form fragment</string>
     <string name="hello_history_fragment">Hello history fragment</string>
@@ -108,5 +110,7 @@
     <string name="empty_image_warning">image is empty</string>
     <string name="comments">Comments</string>
     <string name="qna_desc">qna Desc</string>
+    <string name="confirm_delete">Are you sure you want to delete this history?</string>
+
 
 </resources>

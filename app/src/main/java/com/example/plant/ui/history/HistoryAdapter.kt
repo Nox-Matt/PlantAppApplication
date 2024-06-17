@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Toast
@@ -21,11 +22,11 @@ import com.bumptech.glide.Glide
 import com.example.plant.ui.network.response.Data
 import com.example.plant.ui.network.response.DataItem
 
-class HistoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class HistoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner, private val showDeleteButton: Boolean): ListAdapter<DataItem, HistoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
 
     class ListViewHolder(val binding: ItemRowHistoryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(history : DataItem, viewModelStoreOwner: ViewModelStoreOwner) {
+        fun bind(history : DataItem, viewModelStoreOwner: ViewModelStoreOwner, showDeleteButton: Boolean) {
             Glide.with(itemView.context)
                 .load("${history.imageUrl}")
                 .into(binding.imgCardLeaf)
@@ -33,6 +34,12 @@ class HistoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): List
             val percentageS = percentage.split(".")
             val percentageA = percentageS[1].substring(0,2)
             val percentageF = "(${percentageS[0]}.$percentageA%)"
+
+            if(showDeleteButton){
+                binding.fabDelete.visibility = View.VISIBLE
+            }else{
+                binding.fabDelete.visibility = View.GONE
+            }
 
             val time = "${history.createdAt}"
             val timeS = time.split("T")
@@ -73,7 +80,7 @@ class HistoryAdapter(private val viewModelStoreOwner: ViewModelStoreOwner): List
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val history =getItem(position)
-        holder.bind(history, viewModelStoreOwner)
+        holder.bind(history, viewModelStoreOwner, showDeleteButton)
     }
 
     companion object{
