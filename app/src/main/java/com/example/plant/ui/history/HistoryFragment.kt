@@ -4,36 +4,25 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.plant.ListHistory
 import com.example.plant.R
 import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.FragmentHistoryBinding
 import com.example.plant.pref.DataStoreViewModel
 import com.example.plant.pref.UserPreference
 import com.example.plant.pref.dataStore
-import com.example.plant.ui.network.ApiConfig
-import com.example.plant.ui.network.response.Data
 import com.example.plant.ui.network.response.DataItem
-import com.example.plant.ui.network.response.HistoriesResponse
 import io.github.muddz.styleabletoast.StyleableToast
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -97,7 +86,12 @@ HistoryFragment : Fragment() {
             historyViewModel.getHistoryList(it)
         }
 
+        historyViewModel.historyList.observe(viewLifecycleOwner) { historyList ->
+            binding.emptyFormCondition.visibility = if (historyList.isNullOrEmpty()) View.VISIBLE else View.GONE
+            binding.rvHistory.visibility = if (historyList.isNullOrEmpty()) View.GONE else View.VISIBLE
 
+            (binding.rvHistory.adapter as? HistoryAdapter)?.submitList(historyList)
+        }
 
         historyViewModel.isLoading.observe(viewLifecycleOwner){
             val item = binding.rvHistory.adapter?.itemCount

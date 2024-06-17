@@ -32,6 +32,7 @@ import com.example.plant.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -172,7 +173,7 @@ class CameraFragment : Fragment() {
                 ) {
                     if(response.isSuccessful){
                         showLoading(false)
-                        val responseBody =response.body()
+                        val responseBody = response.body()
                         if(responseBody != null){
                             Log.d(TAG, "${responseBody.data?.id}")
                             Log.d(TAG, "${responseBody.message}")
@@ -186,14 +187,19 @@ class CameraFragment : Fragment() {
 //                            resetPreview()
                         }
                     }else{
+                        val responseBody = response.errorBody()?.string()
+                        val errorMessage = JSONObject(responseBody).getString("message")
                         showLoading(false)
+                        showToast(errorMessage)
                         Log.d(TAG, "${response.message()}")
                     }
                 }
 
                 override fun onFailure(call: Call<DetectResponse>, t: Throwable) {
                     showLoading(false)
+                    val errorMessage = t.message ?: getString(R.string.failure_response)
                     Log.d(TAG, "onFailure: ${t.message}")
+                    showToast(errorMessage)
                 }
 
             })

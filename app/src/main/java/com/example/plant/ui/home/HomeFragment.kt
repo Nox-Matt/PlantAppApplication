@@ -104,6 +104,14 @@ class HomeFragment : Fragment() {
             showLoading(it)
         }
 
+        homeViewModel.historyList.observe(viewLifecycleOwner) { historyList ->
+            binding.emptyFormCondition.visibility = if (historyList.isNullOrEmpty()) View.VISIBLE else View.GONE
+            binding.recyclerView.visibility = if (historyList.isNullOrEmpty()) View.GONE else View.VISIBLE
+
+            (binding.recyclerView.adapter as? HistoryAdapter)?.submitList(historyList)
+        }
+
+
         binding.btnLogout.setOnClickListener {
             lifecycleScope.launch {
                 datastoreViewModel.setTokenKey("")
