@@ -96,7 +96,7 @@
         android:layout_marginTop="54dp"
         android:textStyle="bold"
         android:text="Hello,"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/quoteText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
         android:text="Name!"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/quoteText"
         app:layout_constraintLeft_toRightOf="@+id/greetingText"
         app:layout_constraintTop_toTopOf="parent" />

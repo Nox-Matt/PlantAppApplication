@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/discussion_forum"
-        android:textSize="32dp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,14 +23,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="63dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/custom_input"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFormTitle" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -68,12 +69,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/custom_input"
+        android:hint="@string/commentEditText"
         android:inputType="text"
         android:paddingStart="8dp"
-        android:hint="@string/commentEditText"
-        android:textSize="12dp"
+        android:paddingEnd="8dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/banner"
         app:layout_constraintEnd_toEndOf="@+id/banner"
         app:layout_constraintStart_toStartOf="@+id/banner" />
@@ -104,9 +106,10 @@
 
     <TextView
         android:id="@+id/detailUsername"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/username"
         app:layout_constraintStart_toStartOf="@+id/banner"
@@ -124,23 +127,27 @@
 
     <TextView
         android:id="@+id/detailQnA"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:text="@string/qna_title"
-        app:layout_constraintBottom_toTopOf="@+id/qnaQuestion"
-        app:layout_constraintStart_toStartOf="@+id/banner" />
+        app:layout_constraintStart_toStartOf="@+id/banner"
+        app:layout_constraintEnd_toEndOf="@+id/banner"
+        app:layout_constraintTop_toBottomOf="@+id/detailUsername" />
 
     <TextView
         android:id="@+id/qnaQuestion"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:text="@string/qna_desc"
+        app:layout_constraintEnd_toEndOf="@+id/banner"
         app:layout_constraintBottom_toTopOf="@+id/commentText"
-        app:layout_constraintStart_toStartOf="@+id/banner" />
+        app:layout_constraintStart_toStartOf="@+id/banner"
+        app:layout_constraintTop_toBottomOf="@+id/detailQnA" />
 
     <TextView
         android:id="@+id/emptyFormCondition"
@@ -152,5 +159,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="93dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

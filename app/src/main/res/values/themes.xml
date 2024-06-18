@@ -30,7 +30,6 @@
         <item name="stIconStart">@drawable/ic_delete</item>
     </style>
 
-
     <style name= "Theme.App.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/plant_logo</item>

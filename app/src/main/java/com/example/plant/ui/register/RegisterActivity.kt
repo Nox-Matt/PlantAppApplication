@@ -11,15 +11,9 @@ import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.plant.MainActivity
 import com.example.plant.R
 import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityRegisterBinding
@@ -73,8 +67,11 @@ class RegisterActivity : AppCompatActivity() {
             val username = binding.edtUsername.text.toString()
             val password = binding.edtPassword.text.toString()
             val confirmPassword = binding.edtConfirmPassword.text.toString()
-            if(username.length < 4 && username.length > 14){
-                showErrorDialog("username must be more 4 element and less than 14 element")
+            if(username.length < 4 || username.length > 14){
+                showErrorDialog("username must be more 4 element")
+            }
+            else if(username.length > 14){
+                showErrorDialog("username must be less than 14 element")
             }
             else if(password != confirmPassword) {
                 showErrorDialog("Password and Confirm Password must be the same")

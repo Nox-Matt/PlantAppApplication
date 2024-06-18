@@ -10,6 +10,8 @@ import com.example.plant.databinding.ActivityDetailFormBinding
 import com.example.plant.pref.DataStoreViewModel
 import com.example.plant.pref.UserPreference
 import com.example.plant.pref.dataStore
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class DetailFormActivity : AppCompatActivity() {
 
@@ -29,10 +31,23 @@ class DetailFormActivity : AppCompatActivity() {
         val formUsername = intent.getStringExtra("form_username") ?: ""
         val formDate = intent.getStringExtra("form_date") ?: ""
         val formId = intent.getStringExtra("form_id") ?: ""
+        val formQuestion = intent.getStringExtra("form_description")?: ""
+        try {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            val date = inputFormat.parse(formDate)
+            val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+            val formattedDate = outputFormat.format(date!!)
+            binding.detailDate.text = formattedDate
+        } catch (e: Exception) {
+            binding.detailDate.text = "Invalid date format"
+        }
+
+
+
         dataStoreViewModel.getTokenKey().observe(this) { token ->
             binding.detailUsername.text = formUsername
-            binding.detailDate.text = formDate
             binding.detailQnA.text = formTitle
+            binding.qnaQuestion.text = formQuestion
             viewModel.getCommentsForForum(formId, token)
 
             binding.imageButton.setOnClickListener {
