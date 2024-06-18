@@ -1,4 +1,3 @@
 package com.example.plant.ui.register
 
-class RegisterViewModel {
-}
+class RegisterViewModel

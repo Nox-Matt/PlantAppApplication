@@ -115,7 +115,7 @@ class CameraFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         cameraViewModel = ViewModelProvider(this)[CameraViewModel::class.java]
 
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
