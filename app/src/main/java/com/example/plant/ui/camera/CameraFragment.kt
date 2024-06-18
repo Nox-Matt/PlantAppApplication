@@ -143,6 +143,7 @@ class CameraFragment : Fragment() {
             resetPreview()
             resettingPreview = false
         }
+        showImage()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -220,7 +221,6 @@ class CameraFragment : Fragment() {
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
         const val TAG = "CameraFragment"
-        const val EXTRA_URI = "extra uri"
     }
 
     private fun showToast(message: String) {
