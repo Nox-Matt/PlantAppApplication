@@ -21,6 +21,7 @@
         android:id="@+id/txt_content"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/txt_step"
         app:layout_constraintLeft_toLeftOf="parent"
