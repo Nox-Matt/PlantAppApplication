@@ -72,7 +72,7 @@ HistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
         val deleteViewModel = ViewModelProvider(this).get(DeleteViewModel::class.java)
@@ -181,22 +181,22 @@ HistoryFragment : Fragment() {
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
-        val btnYes : Button =dialog!!.findViewById(R.id.btn_yes)
-        val btnNo: Button = dialog!!.findViewById(R.id.btn_No)
+        val btnYes : Button = dialog.findViewById(R.id.btn_yes)
+        val btnNo: Button = dialog.findViewById(R.id.btn_No)
 
 
         btnYes.setOnClickListener {
             delViewModel.setIsClickId(false)
             delViewModel.setDialogResult(true)
-            dialog!!.dismiss()
+            dialog.dismiss()
         }
 
         btnNo.setOnClickListener {
             delViewModel.setIsClickId(false)
             delViewModel.setDialogResult(false)
-            dialog!!.dismiss()
+            dialog.dismiss()
         }
-        dialog!!.show()
+        dialog.show()
     }
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {

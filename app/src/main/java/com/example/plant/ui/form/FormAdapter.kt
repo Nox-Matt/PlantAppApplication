@@ -9,15 +9,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.plant.data.FormList
 import com.example.plant.databinding.ItemRowDiscussionBinding
 import com.example.plant.ui.network.response.DataForumItem
-
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class FormAdapter(private val onItemClick: (DataForumItem) -> Unit) : ListAdapter<DataForumItem, FormAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     class ListViewHolder(val binding: ItemRowDiscussionBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(form: DataForumItem) {
             binding.txtUsername.text = form.username ?: ""
-            binding.txtTime.text = form.createdAt ?: ""
             binding.txtQnaTitle.text = form.title ?: ""
+            val createdAt = form.createdAt
+            if (createdAt != null) {
+                try {
+                    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+                    val date = inputFormat.parse(createdAt)
+                    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+                    val formattedDate = outputFormat.format(date!!)
+                    binding.txtTime.text = formattedDate
+                } catch (e: Exception) {
+                    binding.txtTime.text = "Invalid date format"
+                }
+            } else {
+                binding.txtTime.text = ""
+            }
         }
     }
 

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.plant.databinding.ItemRowCommentBinding
 import com.example.plant.ui.network.response.AnswersItem
 import com.example.plant.ui.network.response.DataComment
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CommentAdapter : ListAdapter<AnswersItem, CommentAdapter.CommentViewHolder>(DIFF_CALLBACK) {
 
@@ -15,8 +17,21 @@ class CommentAdapter : ListAdapter<AnswersItem, CommentAdapter.CommentViewHolder
 
         fun bind(comment: AnswersItem) {
             binding.txtUsername.text = comment.username ?: ""
-            binding.txtTime.text = comment.createdAt ?: ""
             binding.txtComment.text = comment.answer ?: ""
+            val createdAt = comment.createdAt
+            if (createdAt != null) {
+                try {
+                    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+                    val date = inputFormat.parse(createdAt)
+                    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+                    val formattedDate = outputFormat.format(date!!)
+                    binding.txtTime.text = formattedDate
+                } catch (e: Exception) {
+                    binding.txtTime.text = "Invalid date format"
+                }
+            } else {
+                binding.txtTime.text = ""
+            }
         }
     }
 

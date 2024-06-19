@@ -9,7 +9,7 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/txt_step"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -23,15 +23,10 @@ class FormFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var formAdapter: FormAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val formViewModel = ViewModelProvider(this)[FormViewModel::class.java]
         _binding = FragmentFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -43,6 +38,7 @@ class FormFragment : Fragment() {
             val intent = Intent(context, DetailFormActivity::class.java)
             intent.putExtra("form_id", form.id)
             intent.putExtra("form_title", form.title)
+            intent.putExtra("form_date",form.createdAt)
             intent.putExtra("form_description", form.question)
             intent.putExtra("form_username", form.username)
             startActivity(intent)

@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/welcomeRegister"
-        android:textSize="38dp"
+        android:textSize="38sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:text="@string/username"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edt_username"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:text="@string/password"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edt_password"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:text="@string/confirm_password"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edt_confirm_password"
         app:layout_constraintLeft_toLeftOf="parent" />

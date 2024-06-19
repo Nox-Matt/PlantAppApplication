@@ -50,7 +50,7 @@ class LoginViewModel : ViewModel(){
                     }
                 } else {
 //                        _isLoading.value = false
-                    val errorBody = (response?.errorBody() as ResponseBody).string()
+                    val errorBody = (response.errorBody() as ResponseBody).string()
                     val error1 = errorBody.split("{")
                     val error2 = error1[1].split("}")
                     val error3 = error2[0].split(",")

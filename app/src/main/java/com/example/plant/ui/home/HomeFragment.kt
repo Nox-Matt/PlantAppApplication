@@ -1,7 +1,9 @@
 package com.example.plant.ui.home
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,7 +12,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +30,7 @@ import com.example.plant.getImageUri
 import com.example.plant.pref.DataStoreViewModel
 import com.example.plant.pref.UserPreference
 import com.example.plant.pref.dataStore
+import com.example.plant.ui.camera.CameraFragment
 import com.example.plant.ui.history.HistoryAdapter
 import com.example.plant.ui.login.LoginActivity
 import com.example.plant.ui.network.response.DataItem
@@ -49,7 +56,20 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var capturedTempImageUri: Uri
+    private lateinit var launcherIntentCamera: ActivityResultLauncher<Uri>
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(requireContext(), "Permission request granted", Toast.LENGTH_LONG).show()
+                capturedTempImageUri = getImageUri(requireContext())
+                launcherIntentCamera.launch(capturedTempImageUri)
+            } else {
+                Toast.makeText(requireContext(), "Permission request denied", Toast.LENGTH_LONG).show()
+            }
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -61,7 +81,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
@@ -129,7 +149,7 @@ class HomeFragment : Fragment() {
         }
 
         // Camera Activity
-        val launcherIntentCamera = registerForActivityResult(
+        launcherIntentCamera = registerForActivityResult(
             ActivityResultContracts.TakePicture()
         ) { isSuccess ->
             if (isSuccess) {
@@ -139,8 +159,30 @@ class HomeFragment : Fragment() {
         }
 
         binding.buttonToAnalyzed.setOnClickListener {
-            capturedTempImageUri = getImageUri(requireContext())
-            launcherIntentCamera.launch(capturedTempImageUri)
+            when {
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    capturedTempImageUri = getImageUri(requireContext())
+                    launcherIntentCamera.launch(capturedTempImageUri)
+                }
+                shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Camera Permission Required")
+                        .setMessage("This app needs access to your camera to take pictures for analysis.")
+                        .setPositiveButton("Grant Permission") { _, _ ->
+                            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+                        }
+                        .setNegativeButton("Deny") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                }
+                else -> {
+                    requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+                }
+            }
         }
     }
 

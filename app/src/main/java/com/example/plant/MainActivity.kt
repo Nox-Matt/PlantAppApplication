@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)
         navView.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.navigation_Home -> {
