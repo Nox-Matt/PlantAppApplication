@@ -68,10 +68,7 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.edtPassword.text.toString()
             val confirmPassword = binding.edtConfirmPassword.text.toString()
             if(username.length < 4 || username.length > 14){
-                showErrorDialog("username must be more 4 element")
-            }
-            else if(username.length > 14){
-                showErrorDialog("username must be less than 14 element")
+                showErrorDialog("username must be more 4 element and less than 14 element")
             }
             else if(password != confirmPassword) {
                 showErrorDialog("Password and Confirm Password must be the same")
