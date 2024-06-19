@@ -54,6 +54,7 @@ class DetailActivity : AppCompatActivity() {
 
         val detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         val id = intent.getStringExtra(ID)
+        intent.removeExtra(ID)
         datastoreViewModel.getTokenKey().observe(this){
             detailViewModel.getDetail("$it","$id")
         }

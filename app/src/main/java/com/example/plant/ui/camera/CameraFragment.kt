@@ -52,6 +52,7 @@ class CameraFragment : Fragment() {
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
     private var resettingPreview = false
+    private var isAnalyzing = false
     private lateinit var cameraViewModel: CameraViewModel
 
     private val requestPermissionLauncher =
@@ -155,6 +156,8 @@ class CameraFragment : Fragment() {
     }
 
     private fun analyzeImage(token :String ) {
+        if (isAnalyzing) return
+        isAnalyzing = true
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireContext()).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
@@ -166,12 +169,18 @@ class CameraFragment : Fragment() {
             )
 
             showLoading(true)
+            binding.analyzeButton.isEnabled = false
+
             val client = ApiConfig.getApiService().detectImage("Bearer $token", multipartBody)
             client.enqueue(object : Callback<DetectResponse> {
                 override fun onResponse(
                     call: Call<DetectResponse>,
                     response: Response<DetectResponse>
                 ) {
+                    isAnalyzing = false
+                    binding.analyzeButton.isEnabled = true
+                    showLoading(false)
+
                     if(response.isSuccessful){
                         showLoading(false)
                         val responseBody = response.body()
@@ -197,6 +206,8 @@ class CameraFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<DetectResponse>, t: Throwable) {
+                    isAnalyzing = false
+                    binding.analyzeButton.isEnabled = true
                     showLoading(false)
                     val errorMessage = t.message ?: getString(R.string.failure_response)
                     Log.d(TAG, "onFailure: ${t.message}")
@@ -215,6 +226,7 @@ class CameraFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        isAnalyzing = false
         _binding = null
     }
 
