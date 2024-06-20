@@ -63,6 +63,8 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:inputType="text"
+        android:singleLine="false"
+        android:gravity="top|left"
         android:hint="Insert your question here"
         app:layout_constraintBottom_toTopOf="@+id/btnSubmitQuestion"
         app:layout_constraintEnd_toEndOf="parent"

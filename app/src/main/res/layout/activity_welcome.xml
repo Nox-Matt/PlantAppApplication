@@ -12,7 +12,7 @@
         android:id="@+id/img_leaf"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:src="@drawable/leaf_img"
+        android:src="@drawable/plantcarepal"
         app:layout_constraintRight_toLeftOf="parent"/>
 
     <TextView

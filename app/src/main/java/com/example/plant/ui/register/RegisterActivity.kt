@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.example.plant.R
 import com.example.plant.ViewModelFactory
 import com.example.plant.databinding.ActivityRegisterBinding
@@ -86,6 +87,7 @@ class RegisterActivity : AppCompatActivity() {
                 showErrorDialog("Make sure all of your credential is inputted correctly")
             }
             else {
+
                 register(username, password)
             }
         }
