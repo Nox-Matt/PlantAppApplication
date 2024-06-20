@@ -53,22 +53,20 @@
 
     <EditText
         android:id="@+id/editQuestion"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/custom_input"
-        android:ems="10"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:singleLine="false"
         android:gravity="top|left"
         android:hint="Insert your question here"
         app:layout_constraintBottom_toTopOf="@+id/btnSubmitQuestion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
