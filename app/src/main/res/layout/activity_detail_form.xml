@@ -85,12 +85,13 @@
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/white"
         android:src="@android:drawable/ic_menu_send"
         app:layout_constraintBottom_toBottomOf="@+id/banner"
         app:layout_constraintEnd_toEndOf="@+id/banner"
-        app:layout_constraintStart_toEndOf="@+id/commentText" />
+        app:layout_constraintStart_toEndOf="@+id/commentText"
+        app:layout_constraintTop_toTopOf="@+id/commentText" />
 
     <ImageButton
         android:id="@+id/img_back"
@@ -129,23 +130,25 @@
         android:id="@+id/detailQnA"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/qna_title"
-        app:layout_constraintStart_toStartOf="@+id/banner"
         app:layout_constraintEnd_toEndOf="@+id/banner"
+        app:layout_constraintStart_toStartOf="@+id/banner"
         app:layout_constraintTop_toBottomOf="@+id/detailUsername" />
 
     <TextView
         android:id="@+id/qnaQuestion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="@string/qna_desc"
-        app:layout_constraintEnd_toEndOf="@+id/banner"
         app:layout_constraintBottom_toTopOf="@+id/commentText"
+        app:layout_constraintEnd_toEndOf="@+id/banner"
         app:layout_constraintStart_toStartOf="@+id/banner"
         app:layout_constraintTop_toBottomOf="@+id/detailQnA" />
 
